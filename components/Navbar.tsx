@@ -82,20 +82,15 @@ export default function Navbar() {
               gap: 12,
             }}
           >
-            <span
+            <img
+              src="/logo.png"
+              alt="Avinya logo"
               style={{
-                fontFamily: 'var(--font-body)',
-                fontWeight: 600,
-                fontSize: 18,
-                letterSpacing: '0.12em',
-                color: linkColor,
-                textTransform: 'uppercase',
-                transition: 'color 0.4s cubic-bezier(0.4,0,0.2,1)',
-                whiteSpace: 'nowrap',
+                display: 'block',
+                height: 50,
+                width: 'auto',
               }}
-            >
-              AVINYA
-            </span>
+            />
           </div>
 
           {/* RIGHT: CTA + hamburger */}
