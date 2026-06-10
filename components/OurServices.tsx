@@ -12,7 +12,7 @@ const EASE = [0.4, 0, 0.2, 1] as const
 const SERVICE_CARDS = [
   {
     strip: 'COMMERCIAL',
-    image: '/images/card-commercial.jpg',
+    image: 'https://cdn.pixabay.com/photo/2017/03/26/16/06/exzenterhaus-2175925_1280.jpg',
     title: 'Commercial Design & Build',
     description: 'Turnkey commercial construction from feasibility through occupancy.',
     gradientFrom: '#1B2F4E',
@@ -20,7 +20,7 @@ const SERVICE_CARDS = [
   },
   {
     strip: 'RESIDENTIAL',
-    image: '/images/card-residential.jpg',
+    image: 'https://cdn.pixabay.com/photo/2020/09/01/15/03/building-5535464_1280.jpg',
     title: 'Luxury Homes & Villas',
     description: 'Custom residences with international quality and transparent pricing.',
     gradientFrom: '#243B55',
@@ -28,7 +28,7 @@ const SERVICE_CARDS = [
   },
   {
     strip: 'JOINT VENTURE',
-    image: '/images/card-joint-venture.jpg',
+    image: 'https://cdn.pixabay.com/photo/2017/03/26/16/06/exzenterhaus-2175925_1280.jpg',
     title: 'Joint Venture Development',
     description: 'Unlocking land value through professionally managed developments.',
     gradientFrom: '#1C3A5E',
@@ -36,7 +36,7 @@ const SERVICE_CARDS = [
   },
   {
     strip: 'HOSPITALITY',
-    image: '/images/card-hospitality.jpg',
+    image: 'https://cdn.pixabay.com/photo/2020/09/01/15/03/building-5535464_1280.jpg',
     title: 'Hotels & Restaurants',
     description: 'Hospitality spaces built for operations, guests, and profitability.',
     gradientFrom: '#2C3E50',
@@ -44,7 +44,7 @@ const SERVICE_CARDS = [
   },
   {
     strip: 'MANAGEMENT',
-    image: '/images/card-management.jpg',
+    image: 'https://cdn.pixabay.com/photo/2017/03/26/16/06/exzenterhaus-2175925_1280.jpg',
     title: 'Construction Management',
     description: 'Independent project oversight and cost management for owners.',
     gradientFrom: '#1B2F4E',
@@ -197,14 +197,14 @@ function ServiceCard({
             }}
           />
           {/* Gradient placeholder */}
-          <div
+          {/* <div
             style={{
               position: 'absolute',
               inset: 0,
               background: `linear-gradient(135deg, ${card.gradientFrom} 0%, ${card.gradientTo} 100%)`,
               zIndex: -1,
             }}
-          />
+          /> */}
         </div>
       </div>
 

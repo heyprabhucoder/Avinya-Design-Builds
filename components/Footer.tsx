@@ -11,7 +11,7 @@ const EASE_EXP = [0.16, 1, 0.3, 1] as const
 const NAV_LINKS = ['Home', 'Services', 'Projects', 'About', 'Contact']
 
 const CONTACT_ITEMS = [
-  { label: 'info@avinyaindia.com', href: 'mailto:info@avinyaindia.com', type: 'link' },
+  { label: 'info@avinyadesignbuild.com', href: 'mailto:info@avinyadesignbuild.com', type: 'link' },
   { label: '+91 91594 55001',      href: 'tel:+919159455001',           type: 'link' },
   { label: 'LinkedIn',             href: '#',                            type: 'link', target: '_blank' },
 ]
@@ -382,12 +382,11 @@ export default function Footer() {
           transition={{ duration: 0.9, delay: 0.2, ease: EASE_EXP }}
           style={{
             x:             wordmarkX,
-            fontFamily:    'var(--font-body)',
             fontWeight:    800,
             fontSize:      'clamp(120px, 17vw, 240px)',
-            color:         'rgba(255,255,255,0.90)',
+            color:         'var(--gold)',
             lineHeight:    0.82,
-            letterSpacing: '-0.04em',
+            letterSpacing: '0.04em',
             whiteSpace:    'nowrap',
             textTransform: 'uppercase',
             display:       'block',
@@ -396,7 +395,12 @@ export default function Footer() {
             userSelect:    'none',
           }}
         >
-          AVINYA
+          <span style={{ fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}>A</span>
+          <span style={{ fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}>V</span>
+          <span style={{ fontFamily: "'Sirin Stencil', serif" }}>I</span>
+          <span style={{ fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}>N</span>
+          <span style={{ fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}>Y</span>
+          <span style={{ fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}>A</span>
         </motion.span>
       </div>
 

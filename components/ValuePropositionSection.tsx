@@ -187,7 +187,7 @@ export default function ValuePropositionSection() {
             />
             <h2
               style={{
-                fontFamily:    'var(--font-display)',
+                fontFamily:    'var(--font-body)',
                 fontWeight:    600,
                 fontSize:      'clamp(48px, 4.5vw, 68px)',
                 color:         'var(--navy)',
