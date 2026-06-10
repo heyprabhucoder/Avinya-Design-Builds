@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import LenisProvider from '@/components/LenisProvider'
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   title: 'Avinya Design & Build Pvt Ltd — International Standards, Delivered Locally',
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body>
         <LenisProvider />
         {children}
+        <Analytics />
       </body>
     </html>
   )
