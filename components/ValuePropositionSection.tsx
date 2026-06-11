@@ -3,7 +3,6 @@
 import { useRef } from 'react'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
-import TextReveal from './TextReveal'
 
 /* ─── Constants ─── */
 const EASE = [0.4, 0, 0.2, 1] as const
@@ -22,10 +21,16 @@ function TextBlock({
   body: string
   className: string
 }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-60px 0px' })
+
   return (
-    <div className={className}>
-      {/* Title */}
-      <div
+    <div ref={ref} className={className}>
+      {/* Title — starts muted, brightens on scroll entry */}
+      <motion.div
+        initial={{ opacity: 0.35, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0.35, y: 20 }}
+        transition={{ duration: 0.6, ease: EASE }}
         style={{
           fontFamily:   'var(--font-body)',
           fontWeight:   600,
@@ -35,11 +40,14 @@ function TextBlock({
           marginBottom: 14,
         }}
       >
-        <TextReveal text={title} type="words" delay={0.0} />
-      </div>
+        {title}
+      </motion.div>
 
-      {/* Body */}
-      <p
+      {/* Body — fully invisible until entry */}
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
         style={{
           fontFamily: 'var(--font-body)',
           fontWeight: 400,
@@ -50,8 +58,8 @@ function TextBlock({
           margin:     0,
         }}
       >
-        <TextReveal text={body} type="words" delay={0.1} stagger={0.02} />
-      </p>
+        {body}
+      </motion.p>
     </div>
   )
 }
@@ -144,7 +152,10 @@ export default function ValuePropositionSection() {
         {/* ════ SECTION HEADER ════ */}
         <div style={{ marginBottom: 72 }}>
           {/* Eyebrow */}
-          <div
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={isHeaderInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, ease: EASE }}
             style={{
               fontFamily:    'var(--font-body)',
               fontWeight:    500,
@@ -155,23 +166,24 @@ export default function ValuePropositionSection() {
               marginBottom:  16,
             }}
           >
-            <TextReveal text="WHAT DRIVES US" type="words" delay={0.0} />
-          </div>
+            WHAT DRIVES US
+          </motion.div>
 
           {/* Headline — gold bar + Cormorant heading */}
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 20 }}>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={isHeaderInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.65, delay: 0.1, ease: EASE }}
+            style={{ display: 'flex', alignItems: 'flex-start', gap: 20 }}
+          >
             {/* Gold 3px vertical accent bar */}
-            <motion.div
-              initial={{ scaleY: 0 }}
-              animate={isHeaderInView ? { scaleY: 1 } : {}}
-              transition={{ duration: 0.6, ease: EASE }}
+            <div
               style={{
                 width:      3,
                 height:     56,
                 background: 'var(--gold)',
                 flexShrink: 0,
                 marginTop:  8, /* aligns with cap-height of heading */
-                transformOrigin: 'top',
               }}
             />
             <h2
@@ -185,11 +197,11 @@ export default function ValuePropositionSection() {
                 margin:        0,
               }}
             >
-              <TextReveal text="The principles behind" type="chars" delay={0.1} stagger={0.02} />
+              The principles behind
               <br />
-              <TextReveal text="every project we build." type="chars" delay={0.25} stagger={0.02} />
+              every project we build.
             </h2>
-          </div>
+          </motion.div>
         </div>
 
         {/* ════ 12-COLUMN GRID ════ */}

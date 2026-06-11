@@ -348,6 +348,7 @@ export default function Hero() {
               opacity:      beat1Opacity,
               y:            beat1Y,
               marginBottom: 27,
+              textAlign:    isMobile ? 'center' : 'left',
             }}
           >
             {/* Line 1 */}
@@ -363,6 +364,7 @@ export default function Hero() {
                 textTransform: 'uppercase',
                 /* allow wrapping on mobile instead of overflow */
                 whiteSpace:    isMobile ? 'normal' : 'nowrap',
+                textAlign:     isMobile ? 'center' : 'left',
                 margin:        0,
               }}
             >
@@ -380,6 +382,7 @@ export default function Hero() {
                 letterSpacing: '-0.02em',
                 textTransform: 'uppercase',
                 whiteSpace:    isMobile ? 'normal' : 'nowrap',
+                textAlign:     isMobile ? 'center' : 'left',
                 margin:        0,
               }}
             >
@@ -398,6 +401,7 @@ export default function Hero() {
               maxWidth:      bodyMaxW,
               opacity:       beat1Opacity,
               pointerEvents: 'auto',
+              textAlign:     isMobile ? 'center' : 'left',
             }}
           >
             <p
@@ -428,6 +432,7 @@ export default function Hero() {
                 display:   'flex',
                 gap:       12,
                 flexWrap:  'wrap',
+                justifyContent: isMobile ? 'center' : 'flex-start',
               }}
             >
               <Link
