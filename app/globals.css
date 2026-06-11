@@ -25,6 +25,7 @@
 
 html {
   scroll-behavior: auto; /* Lenis handles smooth scroll */
+  overflow-x: hidden; /* prevent horizontal scroll from parallax photos */
 }
 
 body {
@@ -33,7 +34,7 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: hidden !important; /* prevent horizontal scroll from parallax photos */
 }
 
 canvas {
