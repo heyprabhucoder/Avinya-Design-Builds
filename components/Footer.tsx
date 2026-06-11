@@ -398,7 +398,7 @@ export default function Footer() {
         >
           <span style={{ fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}>A</span>
           <span style={{ fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}>V</span>
-          <span style={{ fontFamily: "'Sirin Stencil', serif"c }}>I</span>
+          <span style={{ fontFamily: "'Sirin Stencil', serif" }}>I</span>
           <span style={{ fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}>N</span>
           <span style={{ fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}>Y</span>
           <span style={{ fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}>A</span>
