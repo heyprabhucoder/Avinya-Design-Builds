@@ -25,7 +25,6 @@
 
 html {
   scroll-behavior: auto; /* Lenis handles smooth scroll */
-  overflow-x: hidden; /* prevent horizontal scroll from parallax photos */
 }
 
 body {

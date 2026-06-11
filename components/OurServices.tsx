@@ -434,8 +434,8 @@ export default function OurServices() {
           .os-section   { padding: 64px 0 56px !important; }
           .os-header    { padding: 0 20px !important; }
           .os-cards-row { padding: 0 0 0 20px !important; }
-          /* Cards fill ~85% of viewport so you see a hint of the next one */
-          .os-card      { min-width: 85vw !important; width: 85vw !important; }
+          /* Cards fill the viewport width minus the left padding so there is no right gap */
+          .os-card      { min-width: calc(100vw - 20px) !important; width: calc(100vw - 20px) !important; }
         }
       `}</style>
     </section>
