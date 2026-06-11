@@ -122,9 +122,9 @@ function SubmitButton({ status }: { status: Status }) {
 
 export default function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null)
-  const isInView   = useInView(sectionRef, { once: true, margin: '-80px 0px' })
+  const isInView = useInView(sectionRef, { once: true, margin: '-80px 0px' })
 
-  const [form, setForm]     = useState<FormData>({ name: '', phone: '', email: '', projectType: '', message: '' })
+  const [form, setForm] = useState<FormData>({ name: '', phone: '', email: '', projectType: '', message: '' })
   const [errors, setErrors] = useState<FieldErrors>({})
   const [status, setStatus] = useState<Status>('idle')
   const [selectOpen, setSelectOpen] = useState(false)
@@ -141,10 +141,10 @@ export default function ContactSection() {
   /* ─── Validation ─── */
   function validate(): boolean {
     const newErrors: FieldErrors = {}
-    if (!form.name.trim())    newErrors.name = true
-    if (!form.phone.trim())   newErrors.phone = true
+    if (!form.name.trim()) newErrors.name = true
+    if (!form.phone.trim()) newErrors.phone = true
     if (!form.email.trim() || !/^[^@]+@[^@]+\.[^@]+$/.test(form.email)) newErrors.email = true
-    if (!form.projectType)    newErrors.projectType = true
+    if (!form.projectType) newErrors.projectType = true
     if (!form.message.trim()) newErrors.message = true
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -276,9 +276,9 @@ export default function ContactSection() {
 
           {/* Contact detail rows */}
           {[
-            { label: 'PHONE',    value: '+91 91594 55001',      href: 'tel:+919159455001' },
-            { label: 'EMAIL',    value: 'info@avinyaindia.com', href: 'mailto:info@avinyaindia.com' },
-            { label: 'LOCATION', value: 'Chennai, Tamil Nadu\nIndia', href: null },
+            { label: 'PHONE', value: '+91 91594 55001', href: 'tel:+919159455001' },
+            { label: 'EMAIL', value: 'info@avinyadesignbuild.com', href: 'mailto:info@avinyadesignbuild.com' },
+            { label: 'LOCATION', value: '54/2 15th Avenue, Indira Colonies, Ashok Nagar\nChennai, Tamil Nadu 600083\nIndia', href: null },
           ].map((item, i) => (
             <motion.div
               key={item.label}

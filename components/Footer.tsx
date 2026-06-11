@@ -4,7 +4,7 @@ import { useRef, useState } from 'react'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 
 /* ─── Constants ─── */
-const EASE     = [0.4, 0, 0.2, 1] as const
+const EASE = [0.4, 0, 0.2, 1] as const
 const EASE_EXP = [0.16, 1, 0.3, 1] as const
 
 /* ─── Data ─── */
@@ -12,13 +12,14 @@ const NAV_LINKS = ['Home', 'Services', 'Projects', 'About', 'Contact']
 
 const CONTACT_ITEMS = [
   { label: 'info@avinyadesignbuild.com', href: 'mailto:info@avinyadesignbuild.com', type: 'link' },
-  { label: '+91 91594 55001',      href: 'tel:+919159455001',           type: 'link' },
-  { label: 'LinkedIn',             href: '#',                            type: 'link', target: '_blank' },
+  { label: '+91 91594 55001', href: 'tel:+919159455001', type: 'link' },
+  { label: 'Instagram', href: 'https://www.instagram.com/avinyadesignbuild/', type: 'link', target: '_blank' },
 ]
 
 const ADDRESS_LINES = [
   'Avinya Design and Build Pvt Ltd',
-  'Chennai, Tamil Nadu',
+  '54/2 15th Avenue, Indira Colonies, Ashok Nagar',
+  'Chennai, Tamil Nadu 600083',
   'India',
 ]
 
@@ -27,7 +28,7 @@ const BARS = [
   { width: 14, bg: 'rgba(255,255,255,0.06)' },
   { width: 10, bg: 'rgba(255,255,255,0.03)' },
   { width: 18, bg: 'rgba(245,168,42,0.35)' },  /* gold 35% */
-  { width:  8, bg: 'rgba(255,255,255,0.05)' },
+  { width: 8, bg: 'rgba(255,255,255,0.05)' },
   { width: 22, bg: 'rgba(245,168,42,0.55)' },  /* gold 55% */
   { width: 12, bg: 'rgba(255,255,255,0.04)' },
   { width: 28, bg: 'rgba(245,168,42,0.70)' },  /* gold 70% */
@@ -48,13 +49,13 @@ function NavLink({ label, delay, isInView }: { label: string; delay: number; isI
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         style={{
-          fontFamily:     'var(--font-body)',
-          fontWeight:     400,
-          fontSize:       17,
-          color:          hovered ? 'var(--gold)' : 'rgba(255,255,255,0.80)',
+          fontFamily: 'var(--font-body)',
+          fontWeight: 400,
+          fontSize: 17,
+          color: hovered ? 'var(--gold)' : 'rgba(255,255,255,0.80)',
           textDecoration: 'none',
-          transition:     'color 0.2s ease',
-          display:        'block',
+          transition: 'color 0.2s ease',
+          display: 'block',
         }}
       >
         {label}
@@ -71,10 +72,10 @@ function ContactItem({
   delay,
   isInView,
 }: {
-  label:   string
-  href:    string
+  label: string
+  href: string
   target?: string
-  delay:   number
+  delay: number
   isInView: boolean
 }) {
   const [hovered, setHovered] = useState(false)
@@ -91,14 +92,14 @@ function ContactItem({
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         style={{
-          fontFamily:     'var(--font-body)',
-          fontWeight:     400,
-          fontSize:       15,
-          color:          hovered ? 'var(--gold)' : 'rgba(255,255,255,0.75)',
+          fontFamily: 'var(--font-body)',
+          fontWeight: 400,
+          fontSize: 15,
+          color: hovered ? 'var(--gold)' : 'rgba(255,255,255,0.75)',
           textDecoration: hovered ? 'underline' : 'none',
-          transition:     'color 0.2s ease',
-          lineHeight:     1.5,
-          display:        'block',
+          transition: 'color 0.2s ease',
+          lineHeight: 1.5,
+          display: 'block',
         }}
       >
         {label}
@@ -111,8 +112,8 @@ function ContactItem({
    MAIN FOOTER COMPONENT
 ═══════════════════════════════════════ */
 export default function Footer() {
-  const footerRef  = useRef<HTMLElement>(null)
-  const zone1Ref   = useRef<HTMLDivElement>(null)
+  const footerRef = useRef<HTMLElement>(null)
+  const zone1Ref = useRef<HTMLDivElement>(null)
   const wordmarkRef = useRef<HTMLDivElement>(null)
 
   /* Zone 1 reveal */
@@ -136,9 +137,9 @@ export default function Footer() {
       ref={footerRef}
       style={{
         background: '#2A2A2A',
-        width:      '100%',
-        overflow:   'hidden',
-        position:   'relative',
+        width: '100%',
+        overflow: 'hidden',
+        position: 'relative',
       }}
     >
       {/* ════════════════════════════════════════════════
@@ -149,22 +150,22 @@ export default function Footer() {
       <div
         className="footer-bars"
         style={{
-          position:      'absolute',
-          top:           0,
-          right:         0,
-          height:        '100%',
-          width:         220,
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          height: '100%',
+          width: 220,
           pointerEvents: 'none',
-          zIndex:        2,
-          display:       'flex',
-          alignItems:    'stretch',
+          zIndex: 2,
+          display: 'flex',
+          alignItems: 'stretch',
         }}
       >
         {BARS.map((bar, i) => (
           <div
             key={i}
             style={{
-              width:      bar.width,
+              width: bar.width,
               background: bar.bg,
               flexShrink: 0,
             }}
@@ -194,14 +195,14 @@ export default function Footer() {
             animate={isZone1InView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0, ease: EASE }}
             style={{
-              fontFamily:    'var(--font-body)',
-              fontWeight:    300,
-              fontSize:      'clamp(22px, 2.2vw, 34px)',
-              color:         'rgba(255,255,255,0.90)',
-              lineHeight:    1.45,
+              fontFamily: 'var(--font-body)',
+              fontWeight: 300,
+              fontSize: 'clamp(22px, 2.2vw, 34px)',
+              color: 'rgba(255,255,255,0.90)',
+              lineHeight: 1.45,
               letterSpacing: '-0.01em',
-              marginBottom:  40,
-              margin:        '0 0 40px 0',
+              marginBottom: 40,
+              margin: '0 0 40px 0',
             }}
           >
             Residential, commercial, hospitality, and joint venture
@@ -219,19 +220,19 @@ export default function Footer() {
               onMouseEnter={() => setCtaHovered(true)}
               onMouseLeave={() => setCtaHovered(false)}
               style={{
-                display:         'inline-block',
-                background:      ctaHovered ? '#E09420' : 'var(--gold)',
-                color:           'var(--navy)',
-                fontFamily:      'var(--font-body)',
-                fontWeight:      600,
-                fontSize:        15,
-                padding:         '16px 32px',
-                borderRadius:    6,
-                border:          'none',
-                cursor:          'pointer',
-                transform:       ctaHovered ? 'scale(1.02)' : 'scale(1)',
-                transition:      'background 0.2s ease, transform 0.2s ease',
-                letterSpacing:   '0.01em',
+                display: 'inline-block',
+                background: ctaHovered ? '#E09420' : 'var(--gold)',
+                color: 'var(--navy)',
+                fontFamily: 'var(--font-body)',
+                fontWeight: 600,
+                fontSize: 15,
+                padding: '16px 32px',
+                borderRadius: 6,
+                border: 'none',
+                cursor: 'pointer',
+                transform: ctaHovered ? 'scale(1.02)' : 'scale(1)',
+                transition: 'background 0.2s ease, transform 0.2s ease',
+                letterSpacing: '0.01em',
               }}
             >
               Request Consultation
@@ -246,13 +247,13 @@ export default function Footer() {
             animate={isZone1InView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
             style={{
-              fontFamily:    'var(--font-body)',
-              fontWeight:    500,
-              fontSize:      13,
-              color:         'rgba(255,255,255,0.45)',
+              fontFamily: 'var(--font-body)',
+              fontWeight: 500,
+              fontSize: 13,
+              color: 'rgba(255,255,255,0.45)',
               textTransform: 'uppercase',
               letterSpacing: '0.16em',
-              marginBottom:  28,
+              marginBottom: 28,
             }}
           >
             Menu
@@ -260,12 +261,12 @@ export default function Footer() {
 
           <ul
             style={{
-              listStyle:     'none',
-              padding:       0,
-              margin:        0,
-              display:       'flex',
+              listStyle: 'none',
+              padding: 0,
+              margin: 0,
+              display: 'flex',
               flexDirection: 'column',
-              gap:           16,
+              gap: 16,
             }}
           >
             {NAV_LINKS.map((link, i) => (
@@ -286,13 +287,13 @@ export default function Footer() {
             animate={isZone1InView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
             style={{
-              fontFamily:    'var(--font-body)',
-              fontWeight:    500,
-              fontSize:      13,
-              color:         'rgba(255,255,255,0.45)',
+              fontFamily: 'var(--font-body)',
+              fontWeight: 500,
+              fontSize: 13,
+              color: 'rgba(255,255,255,0.45)',
               textTransform: 'uppercase',
               letterSpacing: '0.16em',
-              marginBottom:  28,
+              marginBottom: 28,
             }}
           >
             Contact
@@ -301,10 +302,10 @@ export default function Footer() {
           {/* Contact links */}
           <div
             style={{
-              display:       'flex',
+              display: 'flex',
               flexDirection: 'column',
-              gap:           12,
-              marginBottom:  24,
+              gap: 12,
+              marginBottom: 24,
             }}
           >
             {CONTACT_ITEMS.map((item, i) => (
@@ -325,9 +326,9 @@ export default function Footer() {
             animate={isZone1InView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.36, ease: EASE }}
             style={{
-              display:       'flex',
+              display: 'flex',
               flexDirection: 'column',
-              gap:           4,
+              gap: 4,
             }}
           >
             {ADDRESS_LINES.map((line) => (
@@ -336,8 +337,8 @@ export default function Footer() {
                 style={{
                   fontFamily: 'var(--font-body)',
                   fontWeight: 400,
-                  fontSize:   15,
-                  color:      'rgba(255,255,255,0.75)',
+                  fontSize: 15,
+                  color: 'rgba(255,255,255,0.75)',
                   lineHeight: 1.5,
                 }}
               >
@@ -353,9 +354,9 @@ export default function Footer() {
       ════════════════════════════════════════════════ */}
       <div
         style={{
-          width:      'calc(100% - 128px)',
-          margin:     '0 64px',
-          height:     1,
+          width: 'calc(100% - 128px)',
+          margin: '0 64px',
+          height: 1,
           background: 'rgba(255,255,255,0.08)',
         }}
         className="footer-rule"
@@ -371,9 +372,9 @@ export default function Footer() {
         ref={wordmarkRef}
         style={{
           position: 'relative',
-          width:    '100%',
+          width: '100%',
           overflow: 'hidden',
-          padding:  0,
+          padding: 0,
         }}
       >
         <motion.span
@@ -382,18 +383,18 @@ export default function Footer() {
           animate={isWordmarkInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, delay: 0.2, ease: EASE_EXP }}
           style={{
-            x:             wordmarkX,
-            fontWeight:    800,
-            fontSize:      'clamp(120px, 17vw, 240px)',
-            color:         'var(--gold)',
-            lineHeight:    0.82,
+            x: wordmarkX,
+            fontWeight: 800,
+            fontSize: 'clamp(120px, 17vw, 240px)',
+            color: 'var(--gold)',
+            lineHeight: 0.82,
             letterSpacing: '0.04em',
-            whiteSpace:    'nowrap',
+            whiteSpace: 'nowrap',
             textTransform: 'uppercase',
-            display:       'block',
-            width:         '100%',
-            textAlign:     'center',
-            userSelect:    'none',
+            display: 'block',
+            width: '100%',
+            textAlign: 'center',
+            userSelect: 'none',
           }}
         >
           <span style={{ fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}>A</span>
@@ -412,10 +413,10 @@ export default function Footer() {
         className="footer-copyright"
         style={{
           position: 'absolute',
-          bottom:   24,
-          left:     64,
-          zIndex:   3,
-          display:  'flex',
+          bottom: 24,
+          left: 64,
+          zIndex: 3,
+          display: 'flex',
           alignItems: 'center',
           gap: 16,
         }}
@@ -424,8 +425,8 @@ export default function Footer() {
           style={{
             fontFamily: 'var(--font-body)',
             fontWeight: 400,
-            fontSize:   12,
-            color:      'rgba(255,255,255,0.30)',
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.30)',
           }}
         >
           © 2025 Avinya Design and Build Pvt Ltd · All rights reserved.
@@ -437,17 +438,17 @@ export default function Footer() {
         className="footer-location"
         style={{
           position: 'absolute',
-          bottom:   24,
-          right:    240,   /* clears the 220px bars + buffer */
-          zIndex:   3,
+          bottom: 24,
+          right: 240,   /* clears the 220px bars + buffer */
+          zIndex: 3,
         }}
       >
         <span
           style={{
             fontFamily: 'var(--font-body)',
             fontWeight: 400,
-            fontSize:   12,
-            color:      'rgba(255,255,255,0.25)',
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.25)',
           }}
         >
           Chennai, Tamil Nadu, India
