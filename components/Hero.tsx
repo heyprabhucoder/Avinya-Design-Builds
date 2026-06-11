@@ -7,7 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowDown } from 'lucide-react'
 
 /* ─── Frame path helper ─── */
-const TOTAL_FRAMES = 240
+const TOTAL_FRAMES = 151
 const framePath = (i: number) =>
   `/frames/ezgif-frame-${String(i + 1).padStart(3, '0')}.jpg`
 
@@ -305,7 +305,7 @@ export default function Hero() {
             >
               <h1
                 style={{
-                  fontFamily:    'var(--font-display)',
+                  fontFamily:    'var(--font-body)',
                   fontWeight:    300,
                   /* clamp: 32px on tiny screens → 10vw → 80px cap */
                   fontSize:      'clamp(32px, 8.5vw, 80px)',
@@ -330,7 +330,7 @@ export default function Hero() {
             >
               <h1
                 style={{
-                  fontFamily:    'var(--font-display)',
+                  fontFamily:    'var(--font-body)',
                   fontWeight:    300,
                   fontSize:      'clamp(32px, 8.5vw, 80px)',
                   lineHeight:    0.95,
@@ -521,7 +521,7 @@ function StatCol({ number, label }: { number: string; label: string }) {
     >
       <span
         style={{
-          fontFamily: 'var(--font-display)',
+          fontFamily: 'var(--font-body)',
           fontWeight: 300,
           /* fluid: 28px on smallest screens → grows with viewport → 52px max */
           fontSize:   'clamp(28px, 4.5vw, 52px)',

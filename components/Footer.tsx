@@ -194,7 +194,7 @@ export default function Footer() {
             animate={isZone1InView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0, ease: EASE }}
             style={{
-              fontFamily:    'var(--font-display)',
+              fontFamily:    'var(--font-body)',
               fontWeight:    300,
               fontSize:      'clamp(22px, 2.2vw, 34px)',
               color:         'rgba(255,255,255,0.90)',
@@ -377,6 +377,7 @@ export default function Footer() {
         }}
       >
         <motion.span
+          className="footer-wordmark"
           initial={{ opacity: 0, y: 80 }}
           animate={isWordmarkInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, delay: 0.2, ease: EASE_EXP }}
@@ -453,61 +454,77 @@ export default function Footer() {
         </span>
       </div>
 
-      {/* ─── Responsive CSS ─── */}
+      {/* \u2500\u2500\u2500 Responsive CSS \u2500\u2500\u2500 */}
       <style>{`
-        /* ── Tablet 768–1023px ── */
+        /* \u2500\u2500 Tablet 768\u20131023px \u2500\u2500 */
         @media (max-width: 1023px) {
           .footer-zone1 {
             grid-template-columns: 1fr 1fr !important;
+            grid-template-rows: auto auto !important;
             padding: 64px 48px 56px !important;
           }
-          /* Left col spans full width */
+          /* Left col spans full width on top row */
           .footer-zone1 > div:first-child {
-            grid-column: 1 / 3;
-            margin-bottom: 48px;
+            grid-column: 1 / 3 !important;
+            grid-row: 1 / 2 !important;
+            margin-bottom: 40px !important;
+            max-width: none !important;
           }
-          .footer-bars {
-            width: 140px !important;
+          /* Menu + Contact side by side on second row */
+          .footer-zone1 > div:nth-child(2) {
+            grid-column: 1 / 2 !important;
+            grid-row: 2 / 3 !important;
           }
-          .footer-rule {
-            width: calc(100% - 96px) !important;
-            margin: 0 48px !important;
+          .footer-zone1 > div:nth-child(3) {
+            grid-column: 2 / 3 !important;
+            grid-row: 2 / 3 !important;
           }
-          .footer-copyright {
-            left: 48px !important;
-          }
-          .footer-location {
-            right: 160px !important;
-          }
+          .footer-bars { width: 140px !important; }
+          .footer-rule { width: calc(100% - 96px) !important; margin: 0 48px !important; }
+          .footer-copyright { left: 48px !important; }
+          .footer-location  { right: 160px !important; }
         }
 
-        /* ── Mobile < 768px ── */
+        /* \u2500\u2500 Mobile < 768px \u2500\u2500 */
         @media (max-width: 767px) {
           .footer-zone1 {
             grid-template-columns: 1fr !important;
-            padding: 56px 24px 48px !important;
+            grid-template-rows: auto !important;
+            padding: 48px 20px 40px !important;
             gap: 40px !important;
           }
           .footer-zone1 > div:first-child {
             grid-column: 1 / 2 !important;
+            grid-row: auto !important;
             margin-bottom: 0 !important;
           }
-          /* Hide decorative bars — too cramped on mobile */
-          .footer-bars {
-            display: none !important;
+          .footer-zone1 > div:nth-child(2) {
+            grid-column: 1 / 2 !important;
+            grid-row: auto !important;
           }
+          .footer-zone1 > div:nth-child(3) {
+            grid-column: 1 / 2 !important;
+            grid-row: auto !important;
+          }
+          /* Hide decorative bars \u2014 too cramped */
+          .footer-bars { display: none !important; }
           .footer-rule {
-            width: calc(100% - 48px) !important;
-            margin: 0 24px !important;
+            width: calc(100% - 40px) !important;
+            margin: 0 20px !important;
           }
-          /* Copyright goes static */
+          /* Copyright goes static on mobile */
           .footer-copyright {
             position: static !important;
-            padding: 16px 24px 24px !important;
             display: block !important;
+            padding: 16px 20px 20px !important;
           }
-          .footer-location {
-            display: none !important;
+          .footer-location { display: none !important; }
+        }
+
+        /* ── Very small screens < 500px ── */
+        @media (max-width: 499px) {
+          .footer-wordmark {
+            font-size: clamp(48px, 14vw, 72px) !important;
           }
         }
       `}</style>

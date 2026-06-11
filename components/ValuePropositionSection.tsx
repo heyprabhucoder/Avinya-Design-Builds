@@ -32,7 +32,7 @@ function TextBlock({
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0.35, y: 20 }}
         transition={{ duration: 0.6, ease: EASE }}
         style={{
-          fontFamily:   'var(--font-display)',
+          fontFamily:   'var(--font-body)',
           fontWeight:   600,
           fontSize:     24,
           color:        'var(--navy)',
@@ -143,6 +143,7 @@ export default function ValuePropositionSection() {
   return (
     <section
       ref={sectionRef}
+      className="vp-section"
       style={{ background: '#FFFFFF', padding: '120px 0' }}
     >
       {/* ── Content wrapper ── */}
@@ -189,7 +190,7 @@ export default function ValuePropositionSection() {
               style={{
                 fontFamily:    'var(--font-body)',
                 fontWeight:    600,
-                fontSize:      'clamp(48px, 4.5vw, 68px)',
+                fontSize:      'clamp(36px, 4.5vw, 68px)',
                 color:         'var(--navy)',
                 lineHeight:    1.0,
                 letterSpacing: '-0.01em',
@@ -263,6 +264,9 @@ export default function ValuePropositionSection() {
 
       {/* ════ CSS — grid placements + responsive ════ */}
       <style>{`
+        /* Section */
+        .vp-section { overflow: hidden; }
+
         /* ── Wrapper ── */
         .vp-wrapper {
           max-width: 1320px;
@@ -284,7 +288,6 @@ export default function ValuePropositionSection() {
         .vp-text-1 {
           grid-column: 1 / 5;
           grid-row: 1 / 2;
-          /* Horizontal rule spans cols 1–8 after row 1 */
           border-bottom: 1px solid var(--border-light);
           padding-bottom: 64px;
         }
@@ -301,7 +304,6 @@ export default function ValuePropositionSection() {
           overflow: hidden;
           border-radius: 16px;
           min-height: 480px;
-          /* Bleed to the right boundary of .vp-wrapper */
           margin-right: -64px;
         }
         .vp-photo-l {
@@ -311,99 +313,44 @@ export default function ValuePropositionSection() {
           overflow: hidden;
           border-radius: 16px;
           min-height: 480px;
-          /* Bleed to the left boundary of .vp-wrapper */
           margin-left: -64px;
         }
         .vp-text-3 {
           grid-column: 5 / 9;
           grid-row: 2 / 3;
-          /* Horizontal rule spans cols 5–13 after row 2 */
           border-bottom: 1px solid var(--border-light);
           padding-bottom: 64px;
         }
-        .vp-text-4 {
-          grid-column: 5 / 9;
-          grid-row: 3 / 4;
-        }
-        .vp-text-5 {
-          grid-column: 9 / 13;
-          grid-row: 3 / 4;
-        }
+        .vp-text-4 { grid-column: 5 / 9; grid-row: 3 / 4; }
+        .vp-text-5 { grid-column: 9 / 13; grid-row: 3 / 4; }
 
-        /* ──────────────────────────────────────────
+        /* ─────────────────────────────────────────
            TABLET  768px – 1279px
-           2-column grid: TEXT1|TEXT2, PHOTO-L|TEXT3,
-           TEXT4|PHOTO-R, TEXT5
-        ────────────────────────────────────────── */
+           2-column grid
+        ───────────────────────────────────────── */
         @media (max-width: 1279px) {
-          .vp-wrapper {
-            padding: 0 48px;
-          }
+          .vp-wrapper { padding: 0 48px; }
           .vp-grid {
             grid-template-columns: 1fr 1fr;
             column-gap: 28px;
             row-gap: 48px;
           }
-          .vp-text-1 {
-            grid-column: 1 / 2;
-            grid-row: 1;
-            border-bottom: none;
-            padding-bottom: 0;
-          }
-          .vp-text-2 {
-            grid-column: 2 / 3;
-            grid-row: 1;
-            border-bottom: none;
-            padding-bottom: 0;
-          }
-          /* PHOTO LEFT: col 1, row 2 */
-          .vp-photo-l {
-            grid-column: 1 / 2;
-            grid-row: 2;
-            margin-left: 0;
-            min-height: 320px;
-          }
-          /* TEXT 3: col 2, row 2 */
-          .vp-text-3 {
-            grid-column: 2 / 3;
-            grid-row: 2;
-            border-bottom: none;
-            padding-bottom: 0;
-          }
-          /* TEXT 4: col 1, row 3 */
-          .vp-text-4 {
-            grid-column: 1 / 2;
-            grid-row: 3;
-          }
-          /* PHOTO RIGHT: col 2, row 3 */
-          .vp-photo-r {
-            grid-column: 2 / 3;
-            grid-row: 3;
-            margin-right: 0;
-            min-height: 320px;
-          }
-          /* TEXT 5: col 1-2, row 4 */
-          .vp-text-5 {
-            grid-column: 1 / 3;
-            grid-row: 4;
-          }
+          .vp-text-1 { grid-column: 1/2; grid-row: 1; border-bottom: none; padding-bottom: 0; }
+          .vp-text-2 { grid-column: 2/3; grid-row: 1; border-bottom: none; padding-bottom: 0; }
+          .vp-photo-l { grid-column: 1/2; grid-row: 2; margin-left: 0; min-height: 320px; width: 100%; }
+          .vp-text-3  { grid-column: 2/3; grid-row: 2; border-bottom: none; padding-bottom: 0; }
+          .vp-text-4  { grid-column: 1/2; grid-row: 3; }
+          .vp-photo-r { grid-column: 2/3; grid-row: 3; margin-right: 0; min-height: 320px; width: 100%; }
+          .vp-text-5  { grid-column: 1/3; grid-row: 4; }
         }
 
-        /* ──────────────────────────────────────────
-           MOBILE  < 768px
-           Single column, reordered: all text first,
-           then both photos at bottom
-        ────────────────────────────────────────── */
+        /* ─────────────────────────────────────────
+           MOBILE  < 768px — single column
+        ───────────────────────────────────────── */
         @media (max-width: 767px) {
-          .vp-wrapper {
-            padding: 0 24px;
-          }
-          .vp-grid {
-            grid-template-columns: 1fr;
-            row-gap: 40px;
-          }
+          .vp-wrapper { padding: 0 20px; }
+          .vp-grid { grid-template-columns: 1fr; row-gap: 36px; }
 
-          /* Reorder to all text → photos */
           .vp-text-1 { grid-column: 1/2; grid-row: auto; border-bottom: none; padding-bottom: 0; order: 1; }
           .vp-text-2 { grid-column: 1/2; grid-row: auto; border-bottom: none; padding-bottom: 0; order: 2; }
           .vp-text-3 { grid-column: 1/2; grid-row: auto; border-bottom: none; padding-bottom: 0; order: 3; }
@@ -411,11 +358,11 @@ export default function ValuePropositionSection() {
           .vp-text-5 { grid-column: 1/2; grid-row: auto; order: 5; }
           .vp-photo-l {
             grid-column: 1/2; grid-row: auto;
-            margin-left: 0; min-height: 260px; border-radius: 12px; order: 6;
+            margin-left: 0; min-height: 240px; border-radius: 12px; order: 6; width: 100%;
           }
           .vp-photo-r {
             grid-column: 1/2; grid-row: auto;
-            margin-right: 0; min-height: 260px; border-radius: 12px; order: 7;
+            margin-right: 0; min-height: 240px; border-radius: 12px; order: 7; width: 100%;
           }
         }
       `}</style>

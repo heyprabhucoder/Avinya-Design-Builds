@@ -184,7 +184,7 @@ export default function Navbar() {
                       }}
                       style={{
                         display: 'block',
-                        fontFamily: 'var(--font-display)',
+                        fontFamily: 'var(--font-body)',
                         fontWeight: 300,
                         lineHeight: 1.1,
                         color: menuLinkColor,
@@ -207,10 +207,16 @@ export default function Navbar() {
       </div>
 
       {/* ── Responsive styles ── */}
-      <style jsx>{`
+      <style>{`
         .navbar-root {
           top: 24px;
           width: calc(100% - 80px);
+        }
+        @media (max-width: 1023px) {
+          .navbar-root {
+            top: 16px;
+            width: calc(100% - 48px);
+          }
         }
         @media (max-width: 767px) {
           .navbar-root {
@@ -224,9 +230,14 @@ export default function Navbar() {
         .menu-link {
           font-size: 52px;
         }
+        @media (max-width: 1023px) {
+          .menu-link {
+            font-size: 44px;
+          }
+        }
         @media (max-width: 767px) {
           .menu-link {
-            font-size: 40px !important;
+            font-size: 36px !important;
           }
         }
       `}</style>

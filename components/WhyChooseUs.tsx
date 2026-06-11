@@ -375,41 +375,65 @@ export default function WhyChooseUs() {
 
       {/* ─── Responsive CSS ─── */}
       <style>{`
-        /* Tablet: stack vertically, panels un-sticky */
-        @media (max-width: 1023px) {
-          .wcu-split {
-            flex-direction: column !important;
-          }
-          .wcu-left {
-            width: 100% !important;
-          }
+        /* ══ Tablet (768–1023px): column stack, panels NOT sticky ══ */
+        @media (max-width: 1023px) and (min-width: 768px) {
+          .wcu-split      { flex-direction: column !important; }
+          .wcu-left       { width: 100% !important; }
           .wcu-left > div {
             position: relative !important;
             top: auto !important;
+            height: 70vw !important;
+            min-height: 340px !important;
+            max-height: 520px !important;
           }
           .wcu-right {
             width: 100% !important;
             position: relative !important;
             top: auto !important;
             height: auto !important;
-            min-height: 420px !important;
-            padding: 64px 48px 80px !important;
+            min-height: unset !important;
+            padding: 56px 48px 72px !important;
           }
+          .wcu-right > div:last-child { left: 48px !important; }
         }
 
-        /* Mobile */
+        /* ══ Mobile (<768px): full-width sticky stacking — same layering as desktop ══ */
         @media (max-width: 767px) {
-          .wcu-right {
-            padding: 48px 24px 72px !important;
-            min-height: unset !important;
+          /* Column layout — panels stack above the dark stat panel */
+          .wcu-split      { flex-direction: column !important; }
+
+          /* LEFT: full-width, each panel stays 100vh + sticky */
+          .wcu-left       { width: 100% !important; }
+          .wcu-left > div {
+            width: 100% !important;
+            height: 100vh !important;
+            /* keep position:sticky and z-index from inline styles */
           }
-          .wcu-crane {
-            display: none !important;
-          }
+
+          /* Reposition the white floating card for narrow screens */
           .wcu-panel-card {
             left: 6% !important;
             width: 78% !important;
-            padding: 28px 24px 36px !important;
+            padding: 28px 22px 36px !important;
+          }
+
+          /* RIGHT: flows below the panels, no longer sticky */
+          .wcu-right {
+            width: 100% !important;
+            position: relative !important;
+            top: auto !important;
+            height: auto !important;
+            min-height: unset !important;
+            padding: 48px 20px 64px !important;
+          }
+
+          /* Hide crane image — too small on mobile */
+          .wcu-crane { display: none !important; }
+
+          /* Indicator bars */
+          .wcu-right > div:last-child {
+            left: 20px !important;
+            bottom: 28px !important;
           }
         }
       `}</style>

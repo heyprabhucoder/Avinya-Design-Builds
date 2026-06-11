@@ -490,6 +490,7 @@ export default function AboutSection() {
         @media (max-width: 1023px) {
           .about-inner {
             flex-direction: column !important;
+            padding: 0 48px !important;
             gap: 48px !important;
           }
           .about-left {
@@ -502,24 +503,34 @@ export default function AboutSection() {
 
         @media (max-width: 767px) {
           .about-inner {
-            padding: 0 24px !important;
+            padding: 0 20px !important;
+            gap: 36px !important;
           }
 
-          /* Stack Cell A and Cell B vertically — single column */
+          /* Stack Cell A and Cell B vertically */
           .about-grid {
             grid-template-columns: 1fr !important;
-            grid-template-rows: auto auto !important;
+            gap: 24px !important;
           }
 
-          /* Reset each cell to span only 1 column */
           .about-cell-a {
             grid-column: 1 / 2 !important;
             grid-row: 1 / 2 !important;
+            min-height: 180px !important;
+            padding: 28px 24px !important;
           }
 
           .about-cell-b {
             grid-column: 1 / 2 !important;
             grid-row: 2 / 3 !important;
+            min-height: 180px !important;
+            padding: 28px 24px !important;
+          }
+
+          /* Shrink stat numbers so they fit on mobile */
+          .about-cell-a [class],
+          .about-cell-b [class] {
+            font-size: 48px !important;
           }
 
           /* Hide the photo on mobile */

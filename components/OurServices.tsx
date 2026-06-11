@@ -140,6 +140,7 @@ function ServiceCard({
 
   return (
     <motion.div
+      className="os-card"
       initial={{ opacity: 0, y: 48 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 48 }}
       transition={{ duration: 0.6, delay: 0.2 + index * 0.08, ease: EASE }}
@@ -286,6 +287,7 @@ export default function OurServices() {
   return (
     <section
       ref={sectionRef}
+      className="os-section"
       style={{
         background: '#FFFFFF',
         padding: '100px 0 80px 0',
@@ -348,24 +350,27 @@ export default function OurServices() {
         <SplitCTA label="View All Services" />
       </div>
 
-      {/* ─── Responsive CSS ─── */}
+      {/* \u2500\u2500\u2500 Responsive CSS \u2500\u2500\u2500 */}
       <style>{`
-        /* Hide scrollbar — Chrome/Safari */
+        /* Hide scrollbar \u2014 Chrome/Safari */
         .os-cards-row::-webkit-scrollbar { display: none; }
-        /* Hide scrollbar — Firefox */
+        /* Hide scrollbar \u2014 Firefox */
         .os-cards-row {
           scrollbar-width: none;
           -ms-overflow-style: none;
         }
 
         @media (max-width: 1023px) {
-          .os-header      { padding: 0 48px !important; }
-          .os-cards-row   { padding: 0 48px !important; }
+          .os-header    { padding: 0 48px !important; }
+          .os-cards-row { padding: 0 0 0 48px !important; }
         }
 
         @media (max-width: 767px) {
-          .os-header      { padding: 0 24px !important; }
-          .os-cards-row   { padding: 0 24px !important; }
+          .os-section   { padding: 64px 0 56px !important; }
+          .os-header    { padding: 0 20px !important; }
+          .os-cards-row { padding: 0 0 0 20px !important; }
+          /* Cards fill ~85% of viewport so you see a hint of the next one */
+          .os-card      { min-width: 85vw !important; width: 85vw !important; }
         }
       `}</style>
     </section>
