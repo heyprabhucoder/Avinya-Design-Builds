@@ -1,7 +1,9 @@
 'use client'
 
+import Link from 'next/link'
 import { useRef, useState } from 'react'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
+import TextReveal from './TextReveal'
 
 /* ─── Constants ─── */
 const EASE = [0.4, 0, 0.2, 1] as const
@@ -15,6 +17,13 @@ const CONTACT_ITEMS = [
   { label: '+91 91594 55001', href: 'tel:+919159455001', type: 'link' },
   { label: 'Instagram', href: 'https://www.instagram.com/avinyadesignbuild/', type: 'link', target: '_blank' },
 ]
+const ROUTES: Record<string, string> = {
+  Home: '/',
+  Services: '/services',
+  Projects: '/projects',
+  About: '/about',
+  Contact: '/contact',
+}
 
 const ADDRESS_LINES = [
   'Avinya Design and Build Pvt Ltd',
@@ -44,8 +53,8 @@ function NavLink({ label, delay, isInView }: { label: string; delay: number; isI
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay, ease: EASE }}
     >
-      <a
-        href="#"
+      <Link
+        href={ROUTES[label] ?? '/'}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         style={{
@@ -59,7 +68,7 @@ function NavLink({ label, delay, isInView }: { label: string; delay: number; isI
         }}
       >
         {label}
-      </a>
+      </Link>
     </motion.li>
   )
 }
@@ -190,10 +199,7 @@ export default function Footer() {
         {/* ── LEFT COLUMN ── */}
         <div style={{ maxWidth: 560 }}>
           {/* Large editorial body text */}
-          <motion.p
-            initial={{ opacity: 0, y: 32 }}
-            animate={isZone1InView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0, ease: EASE }}
+          <p
             style={{
               fontFamily: 'var(--font-body)',
               fontWeight: 300,
@@ -205,10 +211,13 @@ export default function Footer() {
               margin: '0 0 40px 0',
             }}
           >
-            Residential, commercial, hospitality, and joint venture
-            developments — delivered with international standards,
-            transparent communication, and unwavering accountability.
-          </motion.p>
+            <TextReveal
+              text="Residential, commercial, hospitality, and joint venture developments — delivered with international standards, transparent communication, and unwavering accountability."
+              type="words"
+              delay={0.0}
+              stagger={0.03}
+            />
+          </p>
 
           {/* CTA button */}
           <motion.div
@@ -216,12 +225,16 @@ export default function Footer() {
             animate={isZone1InView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.15, ease: EASE }}
           >
-            <button
+            <Link
+              href="/contact"
               onMouseEnter={() => setCtaHovered(true)}
               onMouseLeave={() => setCtaHovered(false)}
               style={{
-                display: 'inline-block',
-                background: ctaHovered ? '#E09420' : 'var(--gold)',
+                position: 'relative',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'var(--gold)',
                 color: 'var(--navy)',
                 fontFamily: 'var(--font-body)',
                 fontWeight: 600,
@@ -230,13 +243,35 @@ export default function Footer() {
                 borderRadius: 6,
                 border: 'none',
                 cursor: 'pointer',
-                transform: ctaHovered ? 'scale(1.02)' : 'scale(1)',
-                transition: 'background 0.2s ease, transform 0.2s ease',
-                letterSpacing: '0.01em',
+                textDecoration: 'none',
+                overflow: 'hidden',
+                transition: 'transform 0.2s ease',
+                transform: ctaHovered ? 'scale(1.03)' : 'scale(1)',
               }}
             >
-              Request Consultation
-            </button>
+              <span
+                style={{
+                  position: 'relative',
+                  zIndex: 2,
+                  color: ctaHovered ? '#FFFFFF' : 'var(--navy)',
+                  transition: 'color 0.3s ease',
+                }}
+              >
+                Request Consultation
+              </span>
+              <motion.div
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: ctaHovered ? 1 : 0 }}
+                transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'var(--navy)',
+                  transformOrigin: 'bottom',
+                  zIndex: 1,
+                }}
+              />
+            </Link>
           </motion.div>
         </div>
 
@@ -379,9 +414,6 @@ export default function Footer() {
       >
         <motion.span
           className="footer-wordmark"
-          initial={{ opacity: 0, y: 80 }}
-          animate={isWordmarkInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, delay: 0.2, ease: EASE_EXP }}
           style={{
             x: wordmarkX,
             fontWeight: 800,
@@ -397,12 +429,66 @@ export default function Footer() {
             userSelect: 'none',
           }}
         >
-          <span style={{ fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}>A</span>
-          <span style={{ fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}>V</span>
-          <span style={{ fontFamily: "'Sirin Stencil', serif" }}>I</span>
-          <span style={{ fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}>N</span>
-          <span style={{ fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}>Y</span>
-          <span style={{ fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}>A</span>
+          <span style={{ display: 'inline-block', overflow: 'hidden' }}>
+            <motion.span
+              initial={{ y: '100%' }}
+              animate={isWordmarkInView ? { y: 0 } : { y: '100%' }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 1, 0.5, 1] }}
+              style={{ display: 'inline-block', fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}
+            >
+              A
+            </motion.span>
+          </span>
+          <span style={{ display: 'inline-block', overflow: 'hidden' }}>
+            <motion.span
+              initial={{ y: '100%' }}
+              animate={isWordmarkInView ? { y: 0 } : { y: '100%' }}
+              transition={{ duration: 0.8, delay: 0.18, ease: [0.25, 1, 0.5, 1] }}
+              style={{ display: 'inline-block', fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}
+            >
+              V
+            </motion.span>
+          </span>
+          <span style={{ display: 'inline-block', overflow: 'hidden' }}>
+            <motion.span
+              initial={{ y: '100%' }}
+              animate={isWordmarkInView ? { y: 0 } : { y: '100%' }}
+              transition={{ duration: 0.8, delay: 0.26, ease: [0.25, 1, 0.5, 1] }}
+              style={{ display: 'inline-block', fontFamily: "'Sirin Stencil', serif" }}
+            >
+              I
+            </motion.span>
+          </span>
+          <span style={{ display: 'inline-block', overflow: 'hidden' }}>
+            <motion.span
+              initial={{ y: '100%' }}
+              animate={isWordmarkInView ? { y: 0 } : { y: '100%' }}
+              transition={{ duration: 0.8, delay: 0.34, ease: [0.25, 1, 0.5, 1] }}
+              style={{ display: 'inline-block', fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}
+            >
+              N
+            </motion.span>
+          </span>
+          <span style={{ display: 'inline-block', overflow: 'hidden' }}>
+            <motion.span
+              initial={{ y: '100%' }}
+              animate={isWordmarkInView ? { y: 0 } : { y: '100%' }}
+              transition={{ duration: 0.8, delay: 0.42, ease: [0.25, 1, 0.5, 1] }}
+              style={{ display: 'inline-block', fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}
+            >
+              Y
+            </motion.span>
+          </span>
+          <span style={{ display: 'inline-block', overflow: 'hidden' }}>
+            <motion.span
+              initial={{ y: '100%' }}
+              animate={isWordmarkInView ? { y: 0 } : { y: '100%' }}
+              transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 1, 0.5, 1] }}
+              style={{ display: 'inline-block', fontFamily: "'Blanka-Regular', 'Blanka', sans-serif" }}
+            >
+              A
+            </motion.span>
+          </span>
         </motion.span>
       </div>
 

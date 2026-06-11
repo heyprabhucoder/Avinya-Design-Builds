@@ -1,10 +1,12 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowDown } from 'lucide-react'
+import TextReveal from './TextReveal'
 
 /* ─── Frame path helper ─── */
 const TOTAL_FRAMES = 151
@@ -39,6 +41,7 @@ export default function Hero() {
   const [loadedCount,     setLoadedCount]     = useState(0)
   const [firstFrameReady, setFirstFrameReady] = useState(false)
   const [allLoaded,       setAllLoaded]       = useState(false) // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [btnHovered,      setBtnHovered]      = useState(false)
 
   const { isMobile, isTablet } = useBreakpoint()
 
@@ -165,9 +168,9 @@ export default function Hero() {
         {!firstFrameReady && (
           <motion.div
             key="loader"
-            initial={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.02 }}
-            transition={{ duration: 0.4, ease: 'easeOut' }}
+            initial={{ y: 0 }}
+            exit={{ y: '-100%' }}
+            transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
             style={{
               position:       'fixed',
               inset:          0,
@@ -177,29 +180,55 @@ export default function Hero() {
               flexDirection:  'column',
               alignItems:     'center',
               justifyContent: 'center',
-              gap:            24,
+              gap:            28,
             }}
           >
-            <span
-              style={{
-                fontFamily:    'var(--font-body)',
-                fontWeight:    600,
-                fontSize:      22,
-                letterSpacing: '0.16em',
-                color:         '#fff',
-                textTransform: 'uppercase',
-              }}
-            >
-              AVINYA
-            </span>
-
             <div
               style={{
-                width:        200,
-                height:       2,
-                background:   'rgba(255,255,255,0.15)',
-                borderRadius: 999,
+                position: 'absolute',
+                inset: 0,
+                background: 'radial-gradient(circle at center, rgba(245,168,42,0.08) 0%, transparent 70%)',
+                pointerEvents: 'none',
+              }}
+            />
+
+            <div style={{ display: 'flex', overflow: 'hidden', position: 'relative', zIndex: 1 }}>
+              {Array.from("AVINYA").map((letter, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ y: '100%', opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 0.1 + i * 0.08,
+                    ease: [0.25, 1, 0.5, 1],
+                  }}
+                  style={{
+                    display: 'inline-block',
+                    fontFamily: 'var(--font-body)',
+                    fontWeight: 600,
+                    fontSize: isMobile ? 24 : 32,
+                    letterSpacing: '0.18em',
+                    color: '#fff',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  {letter}
+                </motion.span>
+              ))}
+            </div>
+
+            <motion.div
+              initial={{ scaleX: 0, opacity: 0 }}
+              animate={{ scaleX: 1, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
+              style={{
+                width:        220,
+                height:       1,
+                background:   'rgba(255,255,255,0.12)',
+                position:     'relative',
                 overflow:     'hidden',
+                zIndex:       1,
               }}
             >
               <div
@@ -207,22 +236,46 @@ export default function Hero() {
                   height:       '100%',
                   width:        `${progress}%`,
                   background:   'var(--gold)',
-                  borderRadius: 999,
-                  transition:   'width 0.1s ease',
+                  transition:   'width 0.15s ease-out',
                 }}
               />
-            </div>
+            </motion.div>
 
-            <span
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.7 }}
               style={{
-                fontFamily:    'var(--font-body)',
-                fontSize:      12,
-                color:         'rgba(255,255,255,0.40)',
-                letterSpacing: '0.08em',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 4,
+                zIndex: 1,
               }}
             >
-              {Math.round(progress)}%
-            </span>
+              <span
+                style={{
+                  fontFamily:    'var(--font-body)',
+                  fontSize:      11,
+                  color:         'rgba(255,255,255,0.45)',
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Preparing Experience
+              </span>
+              <span
+                style={{
+                  fontFamily:    'var(--font-body)',
+                  fontSize:      13,
+                  fontWeight:    500,
+                  color:         'var(--gold)',
+                  letterSpacing: '0.08em',
+                }}
+              >
+                {Math.round(progress)}%
+              </span>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -298,52 +351,40 @@ export default function Hero() {
             }}
           >
             {/* Line 1 */}
-            <motion.div
-              initial={{ opacity: 0, y: 32 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3, ease: EASE }}
+            <h1
+              style={{
+                fontFamily:    'var(--font-body)',
+                fontWeight:    300,
+                /* clamp: 32px on tiny screens → 10vw → 80px cap */
+                fontSize:      'clamp(32px, 8.5vw, 80px)',
+                lineHeight:    0.95,
+                color:         '#fff',
+                letterSpacing: '-0.02em',
+                textTransform: 'uppercase',
+                /* allow wrapping on mobile instead of overflow */
+                whiteSpace:    isMobile ? 'normal' : 'nowrap',
+                margin:        0,
+              }}
             >
-              <h1
-                style={{
-                  fontFamily:    'var(--font-body)',
-                  fontWeight:    300,
-                  /* clamp: 32px on tiny screens → 10vw → 80px cap */
-                  fontSize:      'clamp(32px, 8.5vw, 80px)',
-                  lineHeight:    0.95,
-                  color:         '#fff',
-                  letterSpacing: '-0.02em',
-                  textTransform: 'uppercase',
-                  /* allow wrapping on mobile instead of overflow */
-                  whiteSpace:    isMobile ? 'normal' : 'nowrap',
-                  margin:        0,
-                }}
-              >
-                INTERNATIONAL STANDARDS,
-              </h1>
-            </motion.div>
+              <TextReveal text="INTERNATIONAL STANDARDS," type="chars" delay={0.3} duration={1.0} stagger={0.02} />
+            </h1>
 
             {/* Line 2 */}
-            <motion.div
-              initial={{ opacity: 0, y: 32 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5, ease: EASE }}
+            <h1
+              style={{
+                fontFamily:    'var(--font-body)',
+                fontWeight:    300,
+                fontSize:      'clamp(32px, 8.5vw, 80px)',
+                lineHeight:    0.95,
+                color:         '#fff',
+                letterSpacing: '-0.02em',
+                textTransform: 'uppercase',
+                whiteSpace:    isMobile ? 'normal' : 'nowrap',
+                margin:        0,
+              }}
             >
-              <h1
-                style={{
-                  fontFamily:    'var(--font-body)',
-                  fontWeight:    300,
-                  fontSize:      'clamp(32px, 8.5vw, 80px)',
-                  lineHeight:    0.95,
-                  color:         '#fff',
-                  letterSpacing: '-0.02em',
-                  textTransform: 'uppercase',
-                  whiteSpace:    isMobile ? 'normal' : 'nowrap',
-                  margin:        0,
-                }}
-              >
-                DELIVERED LOCALLY.
-              </h1>
-            </motion.div>
+              <TextReveal text="DELIVERED LOCALLY." type="chars" delay={0.5} duration={1.0} stagger={0.02} />
+            </h1>
           </motion.div>
 
           {/* ── Body text + CTAs ── */}
@@ -359,10 +400,7 @@ export default function Hero() {
               pointerEvents: 'auto',
             }}
           >
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.7, ease: EASE }}
+            <p
               style={{
                 fontFamily: 'var(--font-body)',
                 fontWeight: 400,
@@ -372,9 +410,14 @@ export default function Hero() {
                 margin:     0,
               }}
             >
-              Bringing North American construction management standards to residential,
-              commercial, and hospitality developments across India.
-            </motion.p>
+              <TextReveal
+                text="Bringing North American construction management standards to residential, commercial, and hospitality developments across India."
+                type="words"
+                delay={0.7}
+                duration={0.8}
+                stagger={0.03}
+              />
+            </p>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -387,8 +430,15 @@ export default function Hero() {
                 flexWrap:  'wrap',
               }}
             >
-              <button
+              <Link
+                href="/contact"
+                onMouseEnter={() => setBtnHovered(true)}
+                onMouseLeave={() => setBtnHovered(false)}
                 style={{
+                  position:      'relative',
+                  display:       'inline-flex',
+                  alignItems:    'center',
+                  justifyContent:'center',
                   background:    'var(--gold)',
                   color:         'var(--navy)',
                   borderRadius:  999,
@@ -398,25 +448,43 @@ export default function Hero() {
                   fontSize:      btnFontSz,
                   border:        'none',
                   cursor:        'pointer',
-                  transition:    'filter 0.2s ease, transform 0.2s ease',
+                  textDecoration:'none',
                   whiteSpace:    'nowrap',
-                }}
-                onMouseEnter={(e) => {
-                  const btn = e.currentTarget as HTMLButtonElement
-                  btn.style.filter    = 'brightness(1.08)'
-                  btn.style.transform = 'scale(1.02)'
-                }}
-                onMouseLeave={(e) => {
-                  const btn = e.currentTarget as HTMLButtonElement
-                  btn.style.filter    = 'brightness(1)'
-                  btn.style.transform = 'scale(1)'
+                  overflow:      'hidden',
+                  transition:    'transform 0.2s ease',
+                  transform:     btnHovered ? 'scale(1.03)' : 'scale(1)',
                 }}
               >
-                Request Consultation
-              </button>
+                <span
+                  style={{
+                    position: 'relative',
+                    zIndex: 2,
+                    color: btnHovered ? '#FFFFFF' : 'var(--navy)',
+                    transition: 'color 0.3s ease',
+                  }}
+                >
+                  Request Consultation
+                </span>
+                <motion.div
+                  initial={{ scaleY: 0 }}
+                  animate={{ scaleY: btnHovered ? 1 : 0 }}
+                  transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'var(--navy)',
+                    transformOrigin: 'bottom',
+                    zIndex: 1,
+                  }}
+                />
+              </Link>
 
-              <button
+              <Link
+                href="/services"
                 style={{
+                  display:       'inline-flex',
+                  alignItems:    'center',
+                  justifyContent:'center',
                   background:   'transparent',
                   color:        '#fff',
                   border:       '1.5px solid rgba(255,255,255,0.50)',
@@ -427,17 +495,18 @@ export default function Hero() {
                   fontSize:     btnFontSz,
                   cursor:       'pointer',
                   transition:   'border-color 0.2s ease',
+                  textDecoration:'none',
                   whiteSpace:   'nowrap',
                 }}
                 onMouseEnter={(e) =>
-                  ((e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.90)')
+                  ((e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.90)')
                 }
                 onMouseLeave={(e) =>
-                  ((e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.50)')
+                  ((e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.50)')
                 }
               >
                 Explore Services
-              </button>
+              </Link>
             </motion.div>
           </motion.div>
 

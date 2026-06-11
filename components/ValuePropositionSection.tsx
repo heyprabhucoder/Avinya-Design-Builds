@@ -3,6 +3,7 @@
 import { useRef } from 'react'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
+import TextReveal from './TextReveal'
 
 /* ─── Constants ─── */
 const EASE = [0.4, 0, 0.2, 1] as const
@@ -21,16 +22,10 @@ function TextBlock({
   body: string
   className: string
 }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-60px 0px' })
-
   return (
-    <div ref={ref} className={className}>
-      {/* Title — starts muted, brightens on scroll entry */}
-      <motion.div
-        initial={{ opacity: 0.35, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0.35, y: 20 }}
-        transition={{ duration: 0.6, ease: EASE }}
+    <div className={className}>
+      {/* Title */}
+      <div
         style={{
           fontFamily:   'var(--font-body)',
           fontWeight:   600,
@@ -40,14 +35,11 @@ function TextBlock({
           marginBottom: 14,
         }}
       >
-        {title}
-      </motion.div>
+        <TextReveal text={title} type="words" delay={0.0} />
+      </div>
 
-      {/* Body — fully invisible until entry */}
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
+      {/* Body */}
+      <p
         style={{
           fontFamily: 'var(--font-body)',
           fontWeight: 400,
@@ -58,8 +50,8 @@ function TextBlock({
           margin:     0,
         }}
       >
-        {body}
-      </motion.p>
+        <TextReveal text={body} type="words" delay={0.1} stagger={0.02} />
+      </p>
     </div>
   )
 }
@@ -152,10 +144,7 @@ export default function ValuePropositionSection() {
         {/* ════ SECTION HEADER ════ */}
         <div style={{ marginBottom: 72 }}>
           {/* Eyebrow */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={isHeaderInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, ease: EASE }}
+          <div
             style={{
               fontFamily:    'var(--font-body)',
               fontWeight:    500,
@@ -166,24 +155,23 @@ export default function ValuePropositionSection() {
               marginBottom:  16,
             }}
           >
-            WHAT DRIVES US
-          </motion.div>
+            <TextReveal text="WHAT DRIVES US" type="words" delay={0.0} />
+          </div>
 
           {/* Headline — gold bar + Cormorant heading */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={isHeaderInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.65, delay: 0.1, ease: EASE }}
-            style={{ display: 'flex', alignItems: 'flex-start', gap: 20 }}
-          >
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 20 }}>
             {/* Gold 3px vertical accent bar */}
-            <div
+            <motion.div
+              initial={{ scaleY: 0 }}
+              animate={isHeaderInView ? { scaleY: 1 } : {}}
+              transition={{ duration: 0.6, ease: EASE }}
               style={{
                 width:      3,
                 height:     56,
                 background: 'var(--gold)',
                 flexShrink: 0,
                 marginTop:  8, /* aligns with cap-height of heading */
+                transformOrigin: 'top',
               }}
             />
             <h2
@@ -197,11 +185,11 @@ export default function ValuePropositionSection() {
                 margin:        0,
               }}
             >
-              The principles behind
+              <TextReveal text="The principles behind" type="chars" delay={0.1} stagger={0.02} />
               <br />
-              every project we build.
+              <TextReveal text="every project we build." type="chars" delay={0.25} stagger={0.02} />
             </h2>
-          </motion.div>
+          </div>
         </div>
 
         {/* ════ 12-COLUMN GRID ════ */}
@@ -224,7 +212,7 @@ export default function ValuePropositionSection() {
           {/* PHOTO RIGHT — spans rows 1–2, bleeds to right boundary */}
           <ParallaxPhoto
             className="vp-photo-r"
-            src="/images/value-prop-right.jpg"
+            src="https://cdn.pixabay.com/photo/2016/02/02/17/47/new-york-1175727_1280.jpg"
             alt="Premium Avinya construction space"
             objectPosition="center top"
             delay={0.1}
@@ -233,7 +221,7 @@ export default function ValuePropositionSection() {
           {/* PHOTO LEFT — spans rows 2–3, bleeds to left boundary */}
           <ParallaxPhoto
             className="vp-photo-l"
-            src="/images/value-prop-left.jpg"
+            src="https://cdn.pixabay.com/photo/2016/02/02/17/47/new-york-1175727_1280.jpg"
             alt="Avinya construction craft"
             objectPosition="center"
             delay={0.3}

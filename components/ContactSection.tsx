@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ArrowUpRight, ChevronDown, Loader2, CheckCircle2 } from 'lucide-react'
+import TextReveal from './TextReveal'
 
 const EASE = [0.4, 0, 0.2, 1] as const
 
@@ -73,52 +74,76 @@ function SubmitButton({ status }: { status: Status }) {
     <button
       type="submit"
       disabled={sending}
-      onMouseEnter={() => setHovered(true)}
+      onMouseEnter={() => !sending && setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        display: 'flex',
-        width: '100%',
-        border: '1.5px solid var(--navy)',
-        borderRadius: 8,
-        overflow: 'hidden',
-        cursor: sending ? 'not-allowed' : 'pointer',
-        transform: hovered && !sending ? 'scale(1.01)' : 'scale(1)',
+        position:        'relative',
+        display:         'flex',
+        width:           '100%',
+        border:          '1.5px solid var(--navy)',
+        borderRadius:    8,
+        overflow:        'hidden',
+        cursor:          sending ? 'not-allowed' : 'pointer',
+        transform:       hovered && !sending ? 'scale(1.01)' : 'scale(1)',
         transformOrigin: 'center left',
-        transition: 'transform 0.2s ease',
-        background: 'none',
-        padding: 0,
+        transition:      'transform 0.22s ease',
+        background:      'none',
+        padding:         0,
+        opacity:         sending ? 0.8 : 1,
       }}
     >
+      {/* Slide-up fill layer */}
+      <motion.div
+        initial={{ scaleY: 0 }}
+        animate={{ scaleY: hovered && !sending ? 1 : 0 }}
+        transition={{ duration: 0.38, ease: [0.25, 1, 0.5, 1] }}
+        style={{
+          position:        'absolute',
+          inset:           0,
+          background:      '#0A1929',
+          transformOrigin: 'bottom',
+          zIndex:          0,
+        }}
+      />
       {/* Left — text */}
       <div style={{
-        flex: 1,
-        padding: '18px 32px',
-        background: hovered && !sending ? '#0D1E33' : 'var(--navy)',
+        flex:       1,
+        padding:    '18px 32px',
         fontFamily: 'var(--font-body)',
         fontWeight: 600,
-        fontSize: 15,
-        color: '#FFFFFF',
-        textAlign: 'left' as const,
-        transition: 'background 0.2s ease',
+        fontSize:   15,
+        color:      '#FFFFFF',
+        textAlign:  'left' as const,
+        position:   'relative',
+        zIndex:     1,
+        background: 'var(--navy)',
       }}>
-        {sending ? 'Sending...' : 'Send Message'}
+        {sending ? 'Sending…' : 'Send Message'}
       </div>
-      {/* Right — icon */}
+      {/* Right — animated icon box */}
       <div style={{
-        width: 60,
-        display: 'flex',
-        alignItems: 'center',
+        position:       'relative',
+        width:          60,
+        display:        'flex',
+        alignItems:     'center',
         justifyContent: 'center',
-        background: hovered && !sending ? '#E09420' : 'var(--gold)',
-        transition: 'background 0.2s ease',
+        zIndex:         1,
+        overflow:       'hidden',
+        background:     'var(--gold)',
       }}>
-        {sending
-          ? <Loader2 size={18} color="var(--navy)" style={{ animation: 'spin 1s linear infinite' }} />
-          : <ArrowUpRight size={18} color="var(--navy)" />}
+        <motion.div
+          animate={{ x: hovered && !sending ? 3 : 0, y: hovered && !sending ? -3 : 0 }}
+          transition={{ duration: 0.25, ease: 'easeOut' }}
+        >
+          {sending
+            ? <Loader2 size={18} color="var(--navy)" style={{ animation: 'spin 1s linear infinite' }} />
+            : <ArrowUpRight size={18} color="var(--navy)" />}
+        </motion.div>
       </div>
     </button>
   )
 }
+
 
 export default function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -206,10 +231,7 @@ export default function ContactSection() {
               }}
             />
             <div>
-              <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.2, ease: EASE }}
+              <p
                 style={{
                   fontFamily: 'var(--font-body)',
                   fontWeight: 500,
@@ -221,14 +243,11 @@ export default function ContactSection() {
                   paddingTop: 4,
                 }}
               >
-                GET IN TOUCH
-              </motion.p>
+                <TextReveal text="GET IN TOUCH" type="words" delay={0.1} />
+              </p>
 
               {/* Headline */}
-              <motion.h2
-                initial={{ opacity: 0, y: 24 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.65, delay: 0.3, ease: EASE }}
+              <h2
                 style={{
                   fontFamily: 'var(--font-body)',
                   fontWeight: 700,
@@ -239,8 +258,10 @@ export default function ContactSection() {
                   margin: '16px 0 0 0',
                 }}
               >
-                Let&apos;s build<br />
-                something<br />
+                <TextReveal text="Let's build" type="chars" delay={0.2} stagger={0.02} />
+                <br />
+                <TextReveal text="something" type="chars" delay={0.35} stagger={0.02} />
+                <br />
                 <span
                   style={{
                     fontWeight: 300,
@@ -249,17 +270,14 @@ export default function ContactSection() {
                     paddingBottom: 4,
                   }}
                 >
-                  exceptional.
+                  <TextReveal text="exceptional." type="chars" delay={0.5} stagger={0.02} />
                 </span>
-              </motion.h2>
+              </h2>
             </div>
           </div>
 
           {/* Subtext */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.55, ease: EASE }}
+          <p
             style={{
               fontFamily: 'var(--font-body)',
               fontWeight: 400,
@@ -270,9 +288,13 @@ export default function ContactSection() {
               margin: '0 0 48px 0',
             }}
           >
-            Schedule a consultation with our team. We&apos;ll walk you through our
-            process, timeline, and approach — at no obligation.
-          </motion.p>
+            <TextReveal
+              text="Schedule a consultation with our team. We'll walk you through our process, timeline, and approach — at no obligation."
+              type="words"
+              delay={0.65}
+              stagger={0.03}
+            />
+          </p>
 
           {/* Contact detail rows */}
           {[

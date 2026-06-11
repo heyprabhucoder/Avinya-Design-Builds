@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion'
+import TextReveal from './TextReveal'
 
 /* ─── Constants ─── */
 const EASE     = [0.4, 0, 0.2, 1] as const
@@ -279,9 +280,6 @@ export default function FAQSection() {
         >
           <motion.span
             className="faq-label"
-            initial={{ opacity: 0, x: -40 }}
-            animate={isFaqLabelInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.9, delay: 0.1, ease: EASE_EXP }}
             style={{
               y:             labelY,
               fontFamily:    'var(--font-body)',
@@ -296,7 +294,7 @@ export default function FAQSection() {
               display:       'block',
             }}
           >
-            FAQ
+            <TextReveal text="FAQ" type="chars" delay={0.1} stagger={0.05} />
           </motion.span>
         </div>
 

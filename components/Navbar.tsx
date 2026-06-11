@@ -1,16 +1,25 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 
 const NAV_LINKS = ['Home', 'Services', 'Projects', 'About', 'Contact']
+const ROUTES: Record<string, string> = {
+  Home: '/',
+  Services: '/services',
+  Projects: '/projects',
+  About: '/about',
+  Contact: '/contact',
+}
 
 const EASE = [0.4, 0, 0.2, 1] as const
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [ctaHovered, setCtaHovered] = useState(false)
 
   /* ─── Scroll detection ─── */
   useEffect(() => {
@@ -95,9 +104,16 @@ export default function Navbar() {
 
           {/* RIGHT: CTA + hamburger */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <button
+            <Link
+              href="/contact"
               className="navbar-cta"
+              onMouseEnter={() => setCtaHovered(true)}
+              onMouseLeave={() => setCtaHovered(false)}
               style={{
+                position: 'relative',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 background: 'var(--gold)',
                 color: 'var(--navy)',
                 borderRadius: 999,
@@ -107,22 +123,36 @@ export default function Navbar() {
                 fontSize: 14,
                 border: 'none',
                 cursor: 'pointer',
-                transition: 'filter 0.2s ease, transform 0.2s ease',
+                textDecoration: 'none',
                 whiteSpace: 'nowrap',
-              }}
-              onMouseEnter={(e) => {
-                const btn = e.currentTarget as HTMLButtonElement
-                btn.style.filter = 'brightness(1.08)'
-                btn.style.transform = 'scale(1.02)'
-              }}
-              onMouseLeave={(e) => {
-                const btn = e.currentTarget as HTMLButtonElement
-                btn.style.filter = 'brightness(1)'
-                btn.style.transform = 'scale(1)'
+                overflow: 'hidden',
+                transition: 'transform 0.2s ease',
+                transform: ctaHovered ? 'scale(1.03)' : 'scale(1)',
               }}
             >
-              Request Consultation
-            </button>
+              <span
+                style={{
+                  position: 'relative',
+                  zIndex: 2,
+                  color: ctaHovered ? '#FFFFFF' : 'var(--navy)',
+                  transition: 'color 0.3s ease',
+                }}
+              >
+                Request Consultation
+              </span>
+              <motion.div
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: ctaHovered ? 1 : 0 }}
+                transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'var(--navy)',
+                  transformOrigin: 'bottom',
+                  zIndex: 1,
+                }}
+              />
+            </Link>
 
             <button
               onClick={() => setMenuOpen((v) => !v)}
@@ -171,10 +201,8 @@ export default function Navbar() {
               >
                 <nav>
                   {NAV_LINKS.map((link, i) => (
-                    <motion.a
+                    <motion.div
                       key={link}
-                      href={`#${link.toLowerCase()}`}
-                      onClick={() => setMenuOpen(false)}
                       initial={{ opacity: 0, x: -16 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{
@@ -182,22 +210,27 @@ export default function Navbar() {
                         delay: i * 0.06,
                         ease: EASE,
                       }}
-                      style={{
-                        display: 'block',
-                        fontFamily: 'var(--font-body)',
-                        fontWeight: 300,
-                        lineHeight: 1.1,
-                        color: menuLinkColor,
-                        textDecoration: 'none',
-                        marginBottom: 8,
-                        transition: 'opacity 0.15s ease, color 0.4s cubic-bezier(0.4,0,0.2,1)',
-                      }}
-                      className="menu-link"
-                      onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.55')}
-                      onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
                     >
-                      {link}
-                    </motion.a>
+                      <Link
+                        href={ROUTES[link] ?? '/'}
+                        onClick={() => setMenuOpen(false)}
+                        style={{
+                          display: 'block',
+                          fontFamily: 'var(--font-body)',
+                          fontWeight: 300,
+                          lineHeight: 1.1,
+                          color: menuLinkColor,
+                          textDecoration: 'none',
+                          marginBottom: 8,
+                          transition: 'opacity 0.15s ease, color 0.4s cubic-bezier(0.4,0,0.2,1)',
+                        }}
+                        className="menu-link"
+                        onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.55')}
+                        onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+                      >
+                        {link}
+                      </Link>
+                    </motion.div>
                   ))}
                 </nav>
               </div>

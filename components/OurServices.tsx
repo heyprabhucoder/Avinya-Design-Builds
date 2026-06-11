@@ -1,9 +1,11 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
+import TextReveal from './TextReveal'
 
 /* ─── Constants ─── */
 const EASE = [0.4, 0, 0.2, 1] as const
@@ -69,26 +71,16 @@ function EyebrowPill({ text }: { text: string }) {
         borderRadius: 4,
       }}
     >
-      {text}
+      <TextReveal text={text} type="words" />
     </span>
   )
 }
 
 /* ─── Split CTA button ─── */
-function SplitCTA({ label }: { label: string }) {
+function SplitCTA({ label, href }: { label: string; href?: string }) {
   const [hovered, setHovered] = useState(false)
-  return (
-    <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        display: 'inline-flex',
-        border: '1.5px solid var(--navy)',
-        borderRadius: 8,
-        overflow: 'hidden',
-        cursor: 'pointer',
-      }}
-    >
+  const content = (
+    <>
       <div
         style={{
           padding: '14px 24px',
@@ -121,6 +113,38 @@ function SplitCTA({ label }: { label: string }) {
           style={{ transition: 'color 0.25s ease' }}
         />
       </div>
+    </>
+  )
+
+  return href ? (
+    <Link
+      href={href}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        display: 'inline-flex',
+        border: '1.5px solid var(--navy)',
+        borderRadius: 8,
+        overflow: 'hidden',
+        cursor: 'pointer',
+        textDecoration: 'none',
+      }}
+    >
+      {content}
+    </Link>
+  ) : (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        display: 'inline-flex',
+        border: '1.5px solid var(--navy)',
+        borderRadius: 8,
+        overflow: 'hidden',
+        cursor: 'pointer',
+      }}
+    >
+      {content}
     </div>
   )
 }
@@ -282,7 +306,50 @@ function ServiceCard({
 ═══════════════════════════════════════ */
 export default function OurServices() {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const isInView   = useInView(sectionRef, { once: true, margin: '-80px 0px' })
+  const cardsRowRef = useRef<HTMLDivElement>(null)
+  const autoSlideRef = useRef<number | null>(null)
+  const isInView = useInView(sectionRef, { once: true, margin: '-80px 0px' })
+
+  useEffect(() => {
+    const row = cardsRowRef.current
+    const mediaQuery = window.matchMedia('(max-width: 767px)')
+
+    function clearAutoSlide() {
+      if (autoSlideRef.current !== null) {
+        window.clearInterval(autoSlideRef.current)
+        autoSlideRef.current = null
+      }
+    }
+
+    function startAutoSlide() {
+      if (!row || !mediaQuery.matches) return
+      const totalCards = row.children.length
+      let currentIndex = 0
+      clearAutoSlide()
+      autoSlideRef.current = window.setInterval(() => {
+        const firstCard = row.firstElementChild as HTMLElement | null
+        if (!firstCard) return
+        currentIndex = (currentIndex + 1) % totalCards
+        row.scrollTo({ left: currentIndex * firstCard.offsetWidth, behavior: 'smooth' })
+      }, 3600)
+    }
+
+    startAutoSlide()
+    const handleMediaChange = () => {
+      if (mediaQuery.matches) {
+        startAutoSlide()
+      } else {
+        clearAutoSlide()
+      }
+    }
+
+    mediaQuery.addEventListener('change', handleMediaChange)
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleMediaChange)
+      clearAutoSlide()
+    }
+  }, [])
 
   return (
     <section
@@ -308,10 +375,7 @@ export default function OurServices() {
           <EyebrowPill text="OUR SERVICES" />
         </motion.div>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 32 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
+        <h2
           style={{
             fontFamily: 'var(--font-body)',
             fontWeight: 800,
@@ -322,14 +386,15 @@ export default function OurServices() {
             margin: '0 0 64px 0',
           }}
         >
-          We deliver the best
+          <TextReveal text="We deliver the best" type="chars" delay={0.1} stagger={0.02} />
           <br />
-          construction solutions.
-        </motion.h2>
+          <TextReveal text="construction solutions." type="chars" delay={0.25} stagger={0.02} />
+        </h2>
       </div>
 
       {/* Horizontal scrolling card row */}
       <div
+        ref={cardsRowRef}
         className="os-cards-row"
         style={{
           display: 'flex',
@@ -347,7 +412,7 @@ export default function OurServices() {
 
       {/* View All CTA */}
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: 56 }}>
-        <SplitCTA label="View All Services" />
+        <SplitCTA label="View All Services" href="/services" />
       </div>
 
       {/* \u2500\u2500\u2500 Responsive CSS \u2500\u2500\u2500 */}

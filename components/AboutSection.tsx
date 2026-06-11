@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { HardHat, Building2, ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
+import TextReveal from './TextReveal'
 
 /* ─── Constants ─── */
 const EASE = [0.4, 0, 0.2, 1] as const
@@ -201,7 +202,7 @@ export default function AboutSection() {
                 display: 'inline-block',
               }}
             >
-              WHO WE ARE
+              <TextReveal text="WHO WE ARE" type="words" delay={0.0} />
             </span>
           </motion.div>
 
@@ -218,9 +219,9 @@ export default function AboutSection() {
                 margin: 0,
               }}
             >
-              Building with
+              <TextReveal text="Building with" type="chars" delay={0.1} stagger={0.02} />
               <br />
-              International Standards.
+              <TextReveal text="International Standards." type="chars" delay={0.25} stagger={0.02} />
             </h2>
           </motion.div>
 
@@ -236,9 +237,12 @@ export default function AboutSection() {
                 margin: 0,
               }}
             >
-              We combine international project management experience from North
-              America with deep local execution — bringing the transparency,
-              precision, and accountability that every property owner deserves.
+              <TextReveal
+                text="We combine international project management experience from North America with deep local execution — bringing the transparency, precision, and accountability that every property owner deserves."
+                type="words"
+                delay={0.3}
+                stagger={0.03}
+              />
             </p>
           </motion.div>
 
@@ -510,7 +514,8 @@ export default function AboutSection() {
           /* Stack Cell A and Cell B vertically */
           .about-grid {
             grid-template-columns: 1fr !important;
-            gap: 24px !important;
+            gap: 18Ipx !important;
+            border-radius: 0px !important;
           }
 
           .about-cell-a {

@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
+import TextReveal from './TextReveal'
 
 /* ─── Data ─── */
 const PANELS = [
@@ -11,28 +12,28 @@ const PANELS = [
     number: '01',
     heading: ['International', 'Standards'],
     body: "We bring North American construction management frameworks to every project — structured scheduling, quality control protocols, and documentation practices most Chennai builders simply don't offer.",
-    image: '/images/service-1.jpg',
+    image: 'https://cdn.pixabay.com/photo/2013/03/27/11/23/the-courthouse-in-haugesund-97070_1280.jpg',
     placeholderHue: 210,
   },
   {
     number: '02',
     heading: ['Transparent', 'Pricing'],
     body: 'No surprise costs. No hidden charges. We provide detailed, itemised budgets before a single brick is laid, and we track every rupee against that budget throughout construction.',
-    image: '/images/service-2.jpg',
+    image: 'https://cdn.pixabay.com/photo/2013/03/27/11/23/the-courthouse-in-haugesund-97070_1280.jpg',
     placeholderHue: 225,
   },
   {
     number: '03',
     heading: ['On-Time,', 'Every Time'],
     body: 'Across 50+ completed projects, we have maintained a 100% on-time delivery record. We build realistic schedules, identify risks early, and hold our teams accountable to deadlines.',
-    image: '/images/service-3.jpg',
+    image: 'https://cdn.pixabay.com/photo/2013/03/27/11/23/the-courthouse-in-haugesund-97070_1280.jpg',
     placeholderHue: 200,
   },
   {
     number: '04',
     heading: ['Expert Local', 'Team'],
     body: "Our team combines international project leadership with deep local execution — people who know Chennai's regulations, materials, and labour market, and who take personal ownership of every outcome.",
-    image: '/images/service-4.jpg',
+    image: 'https://cdn.pixabay.com/photo/2013/03/27/11/23/the-courthouse-in-haugesund-97070_1280.jpg',
     placeholderHue: 215,
   },
 ]
@@ -82,7 +83,7 @@ function EyebrowPill({ text }: { text: string }) {
         borderRadius: 4,
       }}
     >
-      {text}
+      <TextReveal text={text} type="words" />
     </span>
   )
 }
@@ -333,11 +334,11 @@ export default function WhyChooseUs() {
             zIndex: 1,
           }}
         >
-          International
+          <TextReveal text="International" type="chars" delay={0.1} stagger={0.02} />
           <br />
-          standards.
+          <TextReveal text="standards." type="chars" delay={0.25} stagger={0.02} />
           <br />
-          Every project.
+          <TextReveal text="Every project." type="chars" delay={0.4} stagger={0.02} />
         </h2>
 
         {/* Body */}
@@ -354,9 +355,12 @@ export default function WhyChooseUs() {
             zIndex: 1,
           }}
         >
-          We work to fully understand our clients&apos; definitions of success —
-          tailoring our approach to deliver the quality, timeline, and
-          accountability every owner deserves.
+          <TextReveal
+            text="We work to fully understand our clients' definitions of success — tailoring our approach to deliver the quality, timeline, and accountability every owner deserves."
+            type="words"
+            delay={0.55}
+            stagger={0.03}
+          />
         </p>
 
         {/* Big stat */}
@@ -493,7 +497,7 @@ export default function WhyChooseUs() {
           .wcu-m-overlay-img {
             position: relative;
             width: 100%;
-            height: 160px;
+            height: 500px;
             border-radius: 8px;
             overflow: hidden;
             flex-shrink: 0;
