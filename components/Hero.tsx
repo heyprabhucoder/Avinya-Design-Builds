@@ -340,7 +340,8 @@ export default function Hero() {
           <motion.div
             style={{
               position:     'absolute',
-              bottom:       headlineBottom,
+              top:          isMobile ? '28%' : undefined,
+              bottom:       isMobile ? undefined : headlineBottom,
               left:         0,
               right:        0,
               padding:      `0 ${hPad}`,
@@ -349,6 +350,7 @@ export default function Hero() {
               y:            beat1Y,
               marginBottom: 27,
               textAlign:    isMobile ? 'center' : 'left',
+              transform:    isMobile ? 'translateY(-6%)' : undefined,
             }}
           >
             {/* Line 1 */}
@@ -394,7 +396,8 @@ export default function Hero() {
           <motion.div
             style={{
               position:      'absolute',
-              bottom:        bodyBottom,
+              top:           isMobile ? '58%' : undefined,
+              bottom:        isMobile ? undefined : bodyBottom,
               left:          bodyLeft,
               right:         isMobile ? bodyLeft : 'auto',   // full-width on mobile
               zIndex:        5,
@@ -402,6 +405,7 @@ export default function Hero() {
               opacity:       beat1Opacity,
               pointerEvents: 'auto',
               textAlign:     isMobile ? 'center' : 'left',
+              transform:     isMobile ? 'translateY(-50%)' : undefined,
             }}
           >
             <p
