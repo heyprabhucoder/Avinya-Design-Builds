@@ -145,8 +145,8 @@ export default function WhyChooseUs() {
               overflow: 'hidden',
             }}
           >
-            {/* Background photo */}
-            <div style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
+            {/* Background photo — DESKTOP only */}
+            <div className="wcu-desktop-bg" style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
               <Image
                 src={panel.image}
                 alt={panel.heading.join(' ')}
@@ -177,7 +177,7 @@ export default function WhyChooseUs() {
               />
             </div>
 
-            {/* White floating card */}
+            {/* White floating card — DESKTOP only */}
             <div
               className="wcu-panel-card"
               style={{
@@ -222,6 +222,45 @@ export default function WhyChooseUs() {
               >
                 {panel.body}
               </p>
+            </div>
+
+            {/* ── MOBILE overlay card (hidden on desktop) ── */}
+            <div
+              className="wcu-m-overlay"
+              style={{
+                /* background cycles through panel accent colours */
+                background: `linear-gradient(145deg,
+                  hsl(${panel.placeholderHue}, 45%, 22%) 0%,
+                  hsl(${panel.placeholderHue + 15}, 40%, 32%) 100%)`,
+              }}
+            >
+              {/* ── TOP ROW: number label + geometric accent ── */}
+              <div className="wcu-m-overlay-top">
+                <span className="wcu-m-overlay-num">({panel.number})</span>
+                {/* White rotated square — top-right accent */}
+                <div className="wcu-m-overlay-gem" />
+              </div>
+
+              {/* ── BOTTOM: image + heading + body ── */}
+              <div className="wcu-m-overlay-bottom">
+                {/* Photo above the heading */}
+                <div className="wcu-m-overlay-img">
+                  <Image
+                    src={panel.image}
+                    alt={panel.heading.join(' ')}
+                    fill
+                    style={{ objectFit: 'cover', objectPosition: 'center' }}
+                    onError={(e) => {
+                      ;(e.currentTarget as HTMLImageElement).style.display = 'none'
+                    }}
+                  />
+                </div>
+
+                <div className="wcu-m-overlay-heading">
+                  {panel.heading[0]}<br />{panel.heading[1]}
+                </div>
+                <p className="wcu-m-overlay-body">{panel.body}</p>
+              </div>
             </div>
           </div>
         ))}
@@ -375,6 +414,9 @@ export default function WhyChooseUs() {
 
       {/* ─── Responsive CSS ─── */}
       <style>{`
+        /* ══ Always hide mobile overlay on desktop/tablet ══ */
+        .wcu-m-overlay { display: none !important; }
+
         /* ══ Tablet (768–1023px): column stack, panels NOT sticky ══ */
         @media (max-width: 1023px) and (min-width: 768px) {
           .wcu-split      { flex-direction: column !important; }
@@ -397,27 +439,90 @@ export default function WhyChooseUs() {
           .wcu-right > div:last-child { left: 48px !important; }
         }
 
-        /* ══ Mobile (<768px): full-width sticky stacking — same layering as desktop ══ */
+        /* ══ Mobile (<768px): full-width sticky stacking with mobile overlay ══ */
         @media (max-width: 767px) {
-          /* Column layout — panels stack above the dark stat panel */
-          .wcu-split      { flex-direction: column !important; }
+          /* Column layout */
+          .wcu-split { flex-direction: column !important; }
 
-          /* LEFT: full-width, each panel stays 100vh + sticky */
+          /* LEFT: full-width, keep 100vh sticky stacking */
           .wcu-left       { width: 100% !important; }
           .wcu-left > div {
             width: 100% !important;
             height: 100vh !important;
-            /* keep position:sticky and z-index from inline styles */
           }
 
-          /* Reposition the white floating card for narrow screens */
-          .wcu-panel-card {
-            left: 6% !important;
-            width: 78% !important;
-            padding: 28px 22px 36px !important;
+          /* Hide desktop photo bg + white card */
+          .wcu-desktop-bg  { display: none !important; }
+          .wcu-panel-card  { display: none !important; }
+
+          /* Show the mobile overlay card — fills the entire panel */
+          .wcu-m-overlay {
+            display: flex !important;
+            flex-direction: column;
+            justify-content: space-between;
+            position: absolute;
+            inset: 0;
+            padding: 28px 24px 36px;
+            z-index: 2;
           }
 
-          /* RIGHT: flows below the panels, no longer sticky */
+          /* TOP ROW */
+          .wcu-m-overlay-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+          }
+          .wcu-m-overlay-num {
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 15px;
+            color: rgba(255,255,255,0.75);
+            letter-spacing: 0.04em;
+          }
+          /* White rotated square accent — top-right */
+          .wcu-m-overlay-gem {
+            width: 32px;
+            height: 32px;
+            background: #FFFFFF;
+            transform: rotate(12deg);
+            flex-shrink: 0;
+            border-radius: 3px;
+          }
+
+          /* IMAGE above heading */
+          .wcu-m-overlay-img {
+            position: relative;
+            width: 100%;
+            height: 160px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+          }
+
+          /* BOTTOM TEXT BLOCK */
+          .wcu-m-overlay-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+          }
+          .wcu-m-overlay-heading {
+            font-family: var(--font-body);
+            font-weight: 800;
+            font-size: clamp(28px, 7vw, 40px);
+            color: #FFFFFF;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+          }
+          .wcu-m-overlay-body {
+            font-family: var(--font-body);
+            font-weight: 400;
+            font-size: 14px;
+            color: rgba(255,255,255,0.80);
+            line-height: 1.7;
+            margin: 0;
+          }
+
+          /* RIGHT: flows below panels, not sticky */
           .wcu-right {
             width: 100% !important;
             position: relative !important;
@@ -426,11 +531,7 @@ export default function WhyChooseUs() {
             min-height: unset !important;
             padding: 48px 20px 64px !important;
           }
-
-          /* Hide crane image — too small on mobile */
           .wcu-crane { display: none !important; }
-
-          /* Indicator bars */
           .wcu-right > div:last-child {
             left: 20px !important;
             bottom: 28px !important;
