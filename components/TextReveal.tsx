@@ -36,42 +36,59 @@ export default function TextReveal({
   const actualStagger = stagger ?? (type === 'chars' ? 0.015 : 0.05)
 
   if (type === 'chars') {
-    const chars = Array.from(text)
+    // Split into words first, then chars — each word gets white-space:nowrap
+    // so the browser can only break at word boundaries, never mid-word.
+    const words = text.split(' ')
+    let charIndex = 0
+
     return (
       <span
         ref={ref}
         className={className}
         style={{
-          display: 'inline-block',
+          display: 'inline',
           ...style,
         }}
       >
-        {chars.map((char, index) => {
-          const isSpace = char === ' '
+        {words.map((word, wordIdx) => {
+          const wordChars = Array.from(word)
+          const wordStartIndex = charIndex
+          charIndex += word.length + 1 // +1 for the space
+
           return (
             <span
-              key={index}
+              key={wordIdx}
               style={{
-                overflow: 'hidden',
-                display: isSpace ? 'inline' : 'inline-block',
+                display: 'inline-block',
+                whiteSpace: 'nowrap',   // ← prevents mid-word breaks
                 verticalAlign: 'bottom',
               }}
             >
-              <motion.span
-                initial={{ y }}
-                animate={isInView ? { y: 0 } : { y }}
-                transition={{
-                  duration,
-                  delay: delay + index * actualStagger,
-                  ease: EASE,
-                }}
-                style={{
-                  display: 'inline-block',
-                  whiteSpace: 'pre',
-                }}
-              >
-                {isSpace ? ' ' : char}
-              </motion.span>
+              {/* Individual character spans */}
+              {wordChars.map((char, ci) => (
+                <span
+                  key={ci}
+                  style={{ overflow: 'hidden', display: 'inline-block', verticalAlign: 'bottom' }}
+                >
+                  <motion.span
+                    initial={{ y }}
+                    animate={isInView ? { y: 0 } : { y }}
+                    transition={{
+                      duration,
+                      delay: delay + (wordStartIndex + ci) * actualStagger,
+                      ease: EASE,
+                    }}
+                    style={{ display: 'inline-block' }}
+                  >
+                    {char}
+                  </motion.span>
+                </span>
+              ))}
+
+              {/* Word spacer — renders after every word except the last */}
+              {wordIdx < words.length - 1 && (
+                <span style={{ display: 'inline-block', width: '0.28em' }} />
+              )}
             </span>
           )
         })}

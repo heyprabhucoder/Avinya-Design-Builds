@@ -14,8 +14,7 @@ const NAV_LINKS = ['Home', 'Services', 'Projects', 'About', 'Contact']
 
 const CONTACT_ITEMS = [
   { label: 'info@avinyadesignbuild.com', href: 'mailto:info@avinyadesignbuild.com', type: 'link' },
-  { label: '+91 91594 55001', href: 'tel:+919159455001', type: 'link' },
-  { label: 'Instagram', href: 'https://www.instagram.com/avinyadesignbuild/', type: 'link', target: '_blank' },
+  { label: '+91 91594 55001',      href: 'tel:+919159455001',           type: 'link' },
 ]
 const ROUTES: Record<string, string> = {
   Home: '/',
@@ -27,10 +26,25 @@ const ROUTES: Record<string, string> = {
 
 const ADDRESS_LINES = [
   'Avinya Design and Build Pvt Ltd',
-  '54/2 15th Avenue, Indira Colonies, Ashok Nagar',
+  '54/2 15th Avenue, Indira Colony, Ashok Nagar',
   'Chennai, Tamil Nadu 600083',
   'India',
 ]
+
+/* ─── Instagram icon (inline SVG — lucide-react has no Instagram) ─── */
+function InstagramIcon({ size = 20 }: { size?: number }) {
+  return (
+    <svg
+      width={size} height={size} viewBox="0 0 24 24"
+      fill="none" stroke="currentColor"
+      strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  )
+}
 
 /* ─── Decorative vertical stripe bars ─── */
 const BARS = [
@@ -112,6 +126,46 @@ function ContactItem({
         }}
       >
         {label}
+      </a>
+    </motion.div>
+  )
+}
+
+/* ─── Instagram icon link ─── */
+function InstagramLink({ isInView, delay }: { isInView: boolean; delay: number }) {
+  const [hovered, setHovered] = useState(false)
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay, ease: EASE }}
+    >
+      <a
+        href="https://www.instagram.com/avinyadesignbuild/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Follow Avinya Design and Build on Instagram"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        style={{
+          display:        'inline-flex',
+          alignItems:     'center',
+          justifyContent: 'center',
+          width:           40,
+          height:          40,
+          borderRadius:   '50%',
+          border:         '1.5px solid rgba(255,255,255,0.25)',
+          background:     hovered
+            ? 'radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)'
+            : 'transparent',
+          color:          hovered ? '#FFFFFF' : 'rgba(255,255,255,0.70)',
+          transition:     'background 0.3s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease',
+          transform:      hovered ? 'scale(1.12)' : 'scale(1)',
+          borderColor:    hovered ? 'transparent' : 'rgba(255,255,255,0.25)',
+          textDecoration: 'none',
+        }}
+      >
+        <InstagramIcon size={18} />
       </a>
     </motion.div>
   )
@@ -353,6 +407,9 @@ export default function Footer() {
                 isInView={isZone1InView}
               />
             ))}
+
+            {/* Instagram icon link */}
+            <InstagramLink isInView={isZone1InView} delay={0.28} />
           </div>
 
           {/* Address stack */}
