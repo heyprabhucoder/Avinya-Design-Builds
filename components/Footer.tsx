@@ -12,9 +12,9 @@ const EASE_EXP = [0.16, 1, 0.3, 1] as const
 /* ─── Data ─── */
 const NAV_LINKS = ['Home', 'Services', 'Projects', 'About', 'Contact']
 
-const CONTACT_ITEMS = [
+const CONTACT_ITEMS: { label: string; href: string; type: string; target?: string }[] = [
   { label: 'info@avinyadesignbuild.com', href: 'mailto:info@avinyadesignbuild.com', type: 'link' },
-  { label: '+91 91594 55001',      href: 'tel:+919159455001',           type: 'link' },
+  { label: '+91 91594 55001',            href: 'tel:+919159455001',                 type: 'link' },
 ]
 const ROUTES: Record<string, string> = {
   Home: '/',
