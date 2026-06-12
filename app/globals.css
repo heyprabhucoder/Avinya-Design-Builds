@@ -36,11 +36,6 @@ body {
   overflow-x: hidden; /* clips horizontal bleed without breaking window scroll */
 }
 
-main {
-  width: 100%;
-  max-width: 100vw;
-  overflow-x: hidden;
-}
 
 canvas {
   display: block;

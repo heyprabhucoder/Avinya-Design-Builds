@@ -291,7 +291,7 @@ export default function Hero() {
           style={{
             position: 'sticky',
             top:      0,
-            width:    '100vw',
+            width:    '100%',
             height:   '100vh',
             display:  'block',
             zIndex:   1,
