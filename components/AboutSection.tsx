@@ -177,7 +177,7 @@ export default function AboutSection() {
           display: 'flex',
           flexDirection: 'row',
           gap: '4%',
-          alignItems: 'flex-start',
+          alignItems: 'stretch',
         }}
         className="about-inner"
       >
@@ -365,15 +365,18 @@ export default function AboutSection() {
           style={{
             width: '52%',
             flexShrink: 0,
+            display: 'flex',
+            flexDirection: 'column',
           }}
           className="about-right"
         >
           <div
             className="about-grid"
             style={{
+              flex: 1,
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
-              gridTemplateRows: 'auto auto',
+              gridTemplateRows: 'auto 1fr',
               gap: 0,
               borderRadius: 16,
               overflow: 'hidden',
@@ -557,7 +560,8 @@ function PhotoCell() {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        height: '300px',
+        height: '100%',
+        minHeight: '300px',
         overflow: 'hidden',
         position: 'relative',
         cursor: 'pointer',
@@ -574,7 +578,7 @@ function PhotoCell() {
         }}
       >
         <Image
-          src="https://demo2.wpopal.com/adeco/wp-content/uploads/2026/05/service_6.jpg"
+          src="/images/aboutus-section.jpeg"
           alt="Avinya construction project"
           fill
           style={{ objectFit: 'cover', objectPosition: 'center' }}

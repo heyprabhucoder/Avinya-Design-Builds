@@ -224,7 +224,7 @@ export default function ValuePropositionSection() {
           {/* PHOTO RIGHT — spans rows 1–2, bleeds to right boundary */}
           <ParallaxPhoto
             className="vp-photo-r"
-            src="https://cdn.pixabay.com/photo/2016/02/02/17/47/new-york-1175727_1280.jpg"
+            src="/images/valuepro1.jpeg"
             alt="Premium Avinya construction space"
             objectPosition="center top"
             delay={0.1}
@@ -233,7 +233,7 @@ export default function ValuePropositionSection() {
           {/* PHOTO LEFT — spans rows 2–3, bleeds to left boundary */}
           <ParallaxPhoto
             className="vp-photo-l"
-            src="https://cdn.pixabay.com/photo/2016/02/02/17/47/new-york-1175727_1280.jpg"
+            src="/images/valuepro2.jpeg"
             alt="Avinya construction craft"
             objectPosition="center"
             delay={0.3}
