@@ -25,6 +25,8 @@
 
 html {
   scroll-behavior: auto; /* Lenis handles smooth scroll */
+  overflow-x: hidden;    /* lock horizontal scroll at root level */
+  max-width: 100%;
 }
 
 body {
@@ -33,7 +35,14 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden !important; /* prevent horizontal scroll from parallax photos */
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+main {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 canvas {

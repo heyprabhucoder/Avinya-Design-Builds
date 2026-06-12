@@ -348,7 +348,7 @@ export default function Hero() {
               zIndex:       5,
               opacity:      beat1Opacity,
               y:            beat1Y,
-              marginBottom: 27,
+              marginBottom: isMobile ? 5 : 27,
               textAlign:    isMobile ? 'center' : 'left',
               transform:    isMobile ? 'translateY(-6%)' : undefined,
             }}
