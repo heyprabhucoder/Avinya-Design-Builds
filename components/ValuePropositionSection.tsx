@@ -366,7 +366,7 @@ export default function ValuePropositionSection() {
           }
           .vp-photo-l img,
           .vp-photo-r img {
-            object-position: center bottom !important;
+            object-position: center center !important;
           }
         }
       `}</style>
