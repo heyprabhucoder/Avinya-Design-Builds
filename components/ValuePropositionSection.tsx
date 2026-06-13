@@ -364,6 +364,10 @@ export default function ValuePropositionSection() {
             grid-column: 1/2; grid-row: auto;
             margin-right: 0; min-height: 240px; border-radius: 12px; order: 7; width: 100%;
           }
+          .vp-photo-l img,
+          .vp-photo-r img {
+            object-position: center bottom !important;
+          }
         }
       `}</style>
     </section>
