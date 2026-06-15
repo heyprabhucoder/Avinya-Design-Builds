@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
-import Navbar            from '@/components/Navbar'
-import PageTitleBanner   from '@/components/PageTitleBanner'
-import AboutMainSection  from '@/components/about/AboutMainSection'
-import MarqueeStrip      from '@/components/MarqueeStrip'
-import Footer            from '@/components/Footer'
+import Navbar              from '@/components/Navbar'
+import PageTitleBanner     from '@/components/PageTitleBanner'
+import AboutMainSection    from '@/components/about/AboutMainSection'
+import MarqueeStrip        from '@/components/MarqueeStrip'
+import CoreValuesSection   from '@/components/about/CoreValuesSection'
+import Footer              from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'About Avinya Design & Build',
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main style={{ minHeight: '100vh', background: '#F8F7F3', color: '#1A1A1A' }}>
+    <main style={{ minHeight: '100vh', color: '#1A1A1A' }}>
       <Navbar />
       <PageTitleBanner
         eyebrow="Est. 2023"
@@ -29,6 +30,7 @@ export default function AboutPage() {
       />
       <AboutMainSection />
       <MarqueeStrip />
+      <CoreValuesSection />
       <Footer />
     </main>
   )

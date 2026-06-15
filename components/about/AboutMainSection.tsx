@@ -138,7 +138,7 @@ export default function AboutMainSection() {
           display:             'grid',
           gridTemplateColumns: 'clamp(0px, 42%, 560px) 1fr',
           columnGap:           'clamp(32px, 5vw, 72px)',
-          alignItems:          'stretch',
+          alignItems:           'stretch',
         }}
         className="about-main-grid"
       >

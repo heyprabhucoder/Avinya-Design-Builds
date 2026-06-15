@@ -105,7 +105,8 @@ export default function WhyChooseUs() {
      * With sticky stacking each panel occupies its natural-flow scroll
      * position (panel i starts at i × 100vh from section top).
      * 'top top' fires exactly when that panel becomes the top card.
-     */
+    */
+    
     panelRefs.current.forEach((panel, i) => {
       if (!panel) return
       const st = ScrollTrigger.create({
@@ -131,7 +132,7 @@ export default function WhyChooseUs() {
        * Each panel: position sticky + top:0 + ascending z-index.
        * As the user scrolls, panel 2 slides up from the bottom and stacks
        * over panel 1, then panel 3 over panel 2, etc.
-       */}
+      */}
       <div className="wcu-left" style={{ width: '50%' }}>
         {PANELS.map((panel, i) => (
           <div
