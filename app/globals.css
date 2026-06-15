@@ -36,12 +36,60 @@ body {
   overflow-x: hidden; /* clips horizontal bleed without breaking window scroll */
 }
 
-
 canvas {
   display: block;
 }
+
 
 /* Tailwind base */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ── Marquee strip ───────────────────────────────────────────── */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee-scroll 28s linear infinite;
+}
+
+.marquee-wrapper:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.marquee-sep {
+  font-size: 18px;
+  padding: 0 16px;
+  vertical-align: middle;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.marquee-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
