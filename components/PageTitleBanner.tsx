@@ -13,7 +13,6 @@ interface Breadcrumb {
 }
 
 export interface PageTitleBannerProps {
-  eyebrow:     string
   title:       string
   imageSrc:    string
   imageAlt:    string
@@ -23,7 +22,6 @@ export interface PageTitleBannerProps {
 /* ─── Component ───────────────────────────────────────────────── */
 
 export default function PageTitleBanner({
-  eyebrow,
   title,
   imageSrc,
   imageAlt,
@@ -136,23 +134,6 @@ export default function PageTitleBanner({
             pointerEvents: 'none',
           }}
         >
-          {/* Eyebrow */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.10, ease: [0.4, 0, 0.2, 1] }}
-            style={{
-              fontFamily:    'var(--font-body, Inter, sans-serif)',
-              fontWeight:    400,
-              fontSize:      'clamp(11px, 1.2vw, 14px)',
-              color:         'rgba(255, 255, 255, 0.78)',
-              letterSpacing: '0.06em',
-              margin:        '0 0 8px',
-              lineHeight:    1,
-            }}
-          >
-            {eyebrow}
-          </motion.p>
 
           {/* Headline */}
           <motion.h1

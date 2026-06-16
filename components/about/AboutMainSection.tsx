@@ -127,7 +127,7 @@ export default function AboutMainSection() {
       ref={sectionRef}
       style={{
         background: '#FFFFFF',
-        padding:    'clamp(72px, 8vw, 100px) 0 clamp(80px, 9vw, 120px)',
+        padding:    '30px',
       }}
     >
       {/* ── Content wrapper ── */}

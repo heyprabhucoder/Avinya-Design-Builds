@@ -4,6 +4,7 @@ import PageTitleBanner     from '@/components/PageTitleBanner'
 import AboutMainSection    from '@/components/about/AboutMainSection'
 import MarqueeStrip        from '@/components/MarqueeStrip'
 import CoreValuesSection   from '@/components/about/CoreValuesSection'
+import LeadershipSection   from '@/components/about/LeadershipSection'
 import Footer              from '@/components/Footer'
 
 export const metadata: Metadata = {
@@ -19,7 +20,6 @@ export default function AboutPage() {
     <main style={{ minHeight: '100vh', color: '#1A1A1A' }}>
       <Navbar />
       <PageTitleBanner
-        eyebrow="Est. 2023"
         title="About Avinya"
         imageSrc="/images/aboutus-section.jpeg"
         imageAlt="Avinya construction professionals at work in Chennai"
@@ -31,6 +31,7 @@ export default function AboutPage() {
       <AboutMainSection />
       <MarqueeStrip />
       <CoreValuesSection />
+      <LeadershipSection />
       <Footer />
     </main>
   )
