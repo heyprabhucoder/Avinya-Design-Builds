@@ -17,7 +17,6 @@ export default function ServicesPage() {
     <main style={{ minHeight: '100vh', background: '#F8F7F3', color: '#1A1A1A' }}>
       <Navbar />
       <PageTitleBanner
-        eyebrow="What We Build"
         title="Our Services"
         imageSrc="/images/services1.jpeg"
         imageAlt="Avinya construction and design services"

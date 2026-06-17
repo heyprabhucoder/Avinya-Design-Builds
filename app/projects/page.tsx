@@ -17,7 +17,6 @@ export default function ProjectsPage() {
     <main style={{ minHeight: '100vh', background: '#F8F7F3', color: '#1A1A1A' }}>
       <Navbar />
       <PageTitleBanner
-        eyebrow="Our Portfolio"
         title="Projects"
         imageSrc="/images/whychooseus1.jpeg"
         imageAlt="Avinya completed construction project"

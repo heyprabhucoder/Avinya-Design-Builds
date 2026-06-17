@@ -17,7 +17,6 @@ export default function ContactPage() {
     <main style={{ minHeight: '100vh', background: '#F8F7F3', color: '#1A1A1A' }}>
       <Navbar />
       <PageTitleBanner
-        eyebrow="Get In Touch"
         title="Contact Us"
         imageSrc="/images/valuepro1.jpeg"
         imageAlt="Avinya design and build team"
