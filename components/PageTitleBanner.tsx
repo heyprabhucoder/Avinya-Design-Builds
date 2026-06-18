@@ -58,6 +58,7 @@ export default function PageTitleBanner({
           BANNER CONTAINER
       ═══════════════════════════════════════════════════════ */}
       <div
+        className="banner-hero"
         style={{
           position:     'relative',
           width:        '100%',
@@ -233,6 +234,7 @@ export default function PageTitleBanner({
       <style>{`
         @media (max-width: 767px) {
           .banner-chevron { display: none !important; }
+          .banner-hero    { height: 220px !important; }
         }
       `}</style>
     </div>
