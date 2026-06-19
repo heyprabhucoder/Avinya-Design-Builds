@@ -203,6 +203,7 @@ export default function Footer() {
         width: '100%',
         overflow: 'hidden',
         position: 'relative',
+        marginTop: 20,
       }}
     >
       {/* ════════════════════════════════════════════════
