@@ -4,8 +4,9 @@ import PageTitleBanner     from '@/components/PageTitleBanner'
 import AboutMainSection    from '@/components/about/AboutMainSection'
 import MarqueeStrip        from '@/components/MarqueeStrip'
 import CoreValuesSection   from '@/components/about/CoreValuesSection'
-import LeadershipSection   from '@/components/about/LeadershipSection'
-import Footer              from '@/components/Footer'
+import LeadershipSection     from '@/components/about/LeadershipSection'
+import AboutContactSection   from '@/components/about/AboutContactSection'
+import Footer                from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'About Avinya Design & Build',
@@ -32,6 +33,7 @@ export default function AboutPage() {
       <MarqueeStrip />
       <CoreValuesSection />
       <LeadershipSection />
+      <AboutContactSection />
       <Footer />
     </main>
   )
