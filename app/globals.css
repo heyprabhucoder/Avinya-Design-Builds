@@ -93,3 +93,42 @@ canvas {
   }
 }
 
+/* ── Services CTA — phone ring animation ─────────────────────────── */
+@keyframes phone-ring {
+  0%   { transform: rotate(0deg)   scale(1.00); }
+  10%  { transform: rotate(-12deg) scale(1.05); }
+  20%  { transform: rotate(12deg)  scale(1.05); }
+  30%  { transform: rotate(-10deg) scale(1.03); }
+  40%  { transform: rotate(10deg)  scale(1.03); }
+  50%  { transform: rotate(-6deg)  scale(1.01); }
+  60%  { transform: rotate(6deg)   scale(1.01); }
+  70%  { transform: rotate(0deg)   scale(1.00); }
+  100% { transform: rotate(0deg)   scale(1.00); }
+}
+
+.phone-icon-wrapper {
+  animation: phone-ring 2.8s ease-in-out infinite;
+  animation-delay: 1s;
+  transform-origin: center center;
+  display: inline-flex;
+}
+
+/* ── Services CTA — "LET'S TALK" marquee ────────────────────────── */
+@keyframes lets-talk-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.lets-talk-track {
+  display:        flex;
+  align-items:    center;
+  white-space:    nowrap;
+  will-change:    transform;
+  animation:      lets-talk-scroll 18s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phone-icon-wrapper { animation: none; }
+  .lets-talk-track    { animation: none; }
+}
+
